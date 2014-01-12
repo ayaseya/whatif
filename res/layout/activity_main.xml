@@ -1,0 +1,1166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ################## 画面全体のレイアウト ################## -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MainLayout"
+    style="@style/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- ################## ボーナス部分のレイアウト ################## -->
+
+    <LinearLayout
+        android:id="@+id/BonusLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/white_border"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/Bonus1"
+                style="@style/blue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:gravity="center"
+                android:text="@string/SpecialBonus" />
+
+            <TextView
+                android:id="@+id/Pays1"
+                style="@style/blue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:gravity="center"
+                android:text="@string/Pays" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/cChain3"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:paddingRight="20dp" />
+
+                <TextView
+                    android:id="@+id/cChain2"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="20dp" />
+
+                <TextView
+                    android:id="@+id/cChain1"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/cBonus3"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/cBonus2"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/cBonus1"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ################## ポーカー部分のレイアウト ################## -->
+
+    <LinearLayout
+        android:id="@+id/PokerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/white_border"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/SpecialBonus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Pays" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Hits" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/handName1"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/handName1" />
+
+                <TextView
+                    android:id="@+id/handName2"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/handName2" />
+
+                <TextView
+                    android:id="@+id/handName3"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/handName3" />
+
+                <TextView
+                    android:id="@+id/handName4"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/handName4" />
+
+                <TextView
+                    android:id="@+id/handName5"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="@string/handName5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/handBonus1"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/handBonus1" />
+
+                <TextView
+                    android:id="@+id/handBonus2"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/handBonus2" />
+
+                <TextView
+                    android:id="@+id/handBonus3"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/handBonus3" />
+
+                <TextView
+                    android:id="@+id/handBonus4"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/handBonus4" />
+
+                <TextView
+                    android:id="@+id/handBonus5"
+                    style="@style/red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/handBonus5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_border"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/hitsFlag1"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Blank" />
+
+                <TextView
+                    android:id="@+id/hitsFlag2"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Blank" />
+
+                <TextView
+                    android:id="@+id/hitsFlag3"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Blank" />
+
+                <TextView
+                    android:id="@+id/hitsFlag4"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Blank" />
+
+                <TextView
+                    android:id="@+id/hitsFlag5"
+                    style="@style/blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Blank" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ################## ガイド部分のレイアウト ################## -->
+
+    <LinearLayout
+        android:id="@+id/GuideLayout"
+        style="@style/blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/bold_border"
+        android:baselineAligned="false"
+        android:padding="2dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit2"
+                android:textColor="#FF0000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit4"
+                android:textColor="#FF0000" />
+        </LinearLayout>
+
+        <!-- ################## 1 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card39"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank1"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 2 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank2"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank2"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank2"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank2"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 3 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card41"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank3"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 4 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank4"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank4"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card29"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank4"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card42"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank4"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 5 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank5"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank5"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank5"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card43"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank5"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 6 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank6"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank6"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank6"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card44"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank6"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 7 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank7"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank7"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank7"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card45"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank7"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 8 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank8"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank8"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank8"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card46"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank8"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 9 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank9"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank9"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank9"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card47"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank9"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## 10 ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank10"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank10"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card35"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank10"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card48"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank10"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## J ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank11"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank11"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card36"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank11"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card49"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank11"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## Q ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank12"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank12"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card37"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank12"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank12"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- ################## K ################## -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank13"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank13"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card38"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank13"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/card51"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/rank13"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit1"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit2"
+                android:textColor="#FF0000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit3"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/suit4"
+                android:textColor="#FF0000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ################## 山札部分のレイアウト ################## -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+
+        <TextView
+            android:id="@+id/countView"
+            style="@style/blue"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bold_border"
+            android:gravity="right|center_vertical"
+            android:padding="10dp"
+            android:text="@string/zero"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#000000"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:text="@string/layout"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:baselineAligned="false" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Wager"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#00FFFF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Win"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#FFFF00"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Paid"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#FFFF00"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Credit"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#00FFFF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/wager"
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/test"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/win"
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/test"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/paid"
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/test"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/credit"
+                    style="@style/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/test"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ################## 手札部分のレイアウト ################## -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000" >
+
+        <Button
+            android:id="@+id/hand1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_toLeftOf="@+id/hand2"
+            android:background="#FFFFFF"
+            android:onClick="hand1_onClick"
+            android:text="@string/hand1"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/hand2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/hand3"
+            android:layout_margin="1dp"
+            android:layout_toLeftOf="@+id/hand3"
+            android:background="#FFFFFF"
+            android:onClick="hand2_onClick"
+            android:text="@string/hand2"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/hand4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/hand3"
+            android:layout_margin="1dp"
+            android:layout_toRightOf="@+id/hand3"
+            android:background="#FFFFFF"
+            android:onClick="hand4_onClick"
+            android:text="@string/hand4"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/hand5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/hand4"
+            android:layout_margin="1dp"
+            android:layout_toRightOf="@+id/hand4"
+            android:background="#FFFFFF"
+            android:onClick="hand5_onClick"
+            android:text="@string/hand5"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/hand3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="1dp"
+            android:background="#FFFFFF"
+            android:onClick="hand3_onClick"
+            android:text="@string/hand3"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/log"
+        style="@style/blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/white_border"
+        android:lines="1"
+        android:text="@string/log" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="test_onClick"
+        android:text="@string/Reset" />
+
+</LinearLayout>
