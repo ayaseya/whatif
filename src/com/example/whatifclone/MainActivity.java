@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -17,17 +19,28 @@ public class MainActivity extends Activity {
 
 	/* ********** ********** ********** ********** */
 
-	// Cardクラスを宣言する
+	// クラスを宣言する
 	Card card = new Card();
+	Coin coin = new Coin();
 
-	// 変数の宣言
+	// 画面情報関連のViewを宣言
 	TextView layout; // 場札
 	TextView count; // カウンター
 	TextView cc1; // ボーナス表示
 	TextView cc2; // ボーナス表示
 	TextView cc3; // ボーナス表示
-	TextView log; // ログ表示
 	TextView guideView; // ガイド表示
+
+	// 所持コイン数、BET数の関連のViewを宣言
+	TextView wager;
+	TextView win;
+	TextView paid;
+	TextView credit;
+
+	RelativeLayout handLo;// 手札表示のレイアウト
+	LinearLayout coinLo;// コイン操作のレイアウト
+
+	/* ********** ********** ********** ********** */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +53,7 @@ public class MainActivity extends Activity {
 
 		card.Shuffle();
 		setCard();
+
 		Deal();
 	}// onCreate_**********
 
@@ -50,9 +64,12 @@ public class MainActivity extends Activity {
 		return true;
 	}// nCreateOptionsMenu_*********
 
+	// setCard関数…リソースから52枚分のトランプの文字列を配列に取得する
+
+	/* ********** ********** ********** ********** */
+
 	// setCard関数…52枚分のカードの表示用文字列を読み込む処理
 	public void setCard() {
-		// リソースから52枚分のトランプの文字列を配列に取得する
 		Resources res = getResources();
 
 		for (int i = 0; i < 52; i++) {
@@ -60,7 +77,6 @@ public class MainActivity extends Activity {
 			int strId = getResources().getIdentifier(name, "string",
 					getPackageName());
 			card.cardInfo[i] = res.getString(strId);
-			// Log.d(TAG,"カード" + cardInfo[i]);
 		}
 	}
 
@@ -75,14 +91,29 @@ public class MainActivity extends Activity {
 		}
 
 		layout = (TextView) findViewById(R.id.layout);// 場札表示
+		wager = (TextView) findViewById(R.id.wager);//
+		win = (TextView) findViewById(R.id.win);//
+		paid = (TextView) findViewById(R.id.paid);//
+		credit = (TextView) findViewById(R.id.credit);//
 
 		cc1 = (TextView) findViewById(R.id.cChain1); // ボーナス表示
 		cc2 = (TextView) findViewById(R.id.cChain2); // ボーナス表示
 		cc3 = (TextView) findViewById(R.id.cChain3); // ボーナス表示
 
+		handLo = (RelativeLayout) findViewById(R.id.HandLayout); // 手札表示のレイアウト
+		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // コイン操作のレイアウト
+
+		// 手札を非表示にして、コイン操作画面を表示する
+		handLo.setVisibility(View.GONE);
+
 		// レイアウトに配置した部品にstring.xmlの文字列を挿入する
 
 		layout.setText("-");
+
+		wager.setText("0");
+		win.setText("0");
+		paid.setText("0");
+		credit.setText("100");
 
 		hand[0].setText(card.Display(card.list.get(0)));
 		card.nowHandNum[0] = card.list.get(0);
@@ -164,13 +195,6 @@ public class MainActivity extends Activity {
 			card.chainNum++;
 			count.setText(String.valueOf(card.chainNum));
 
-			/*
-			 * Log.d(TAG, "山札" + card.Display(card.layout) + "(" + card.layout +
-			 * ") " + "Suit:" + card.Suit(card.layout) + "Rank" +
-			 * card.Rank(card.layout) + " 手札" + card.Display(card.Hand[x]) + "("
-			 * + card.Hand[x] + ")" + "Suit:" + card.Suit(card.Hand[x]) + "Rank"
-			 * + card.Rank(card.Hand[x]));
-			 */
 			Game();
 
 		} else if ((card.Suit(card.nowLayoutNum) == card
@@ -228,20 +252,13 @@ public class MainActivity extends Activity {
 				cc1.setBackgroundColor(0xFF0000FF);
 			}
 
-			/*
-			 * Log.d(TAG, "山札" + card.Display(card.layout) + "(" + card.layout +
-			 * ") " + "Suit:" + card.Suit(card.layout) + "Rank" +
-			 * card.Rank(card.layout) + " 手札" + card.Display(card.Hand[x]) + "("
-			 * + card.Hand[x] + ")" + "Suit:" + card.Suit(card.Hand[x]) + "Rank"
-			 * + card.Rank(card.Hand[x]));
-			 */
 			Game();
 		}
 	}// Card.Click_**********
 
 	// Game関数…ゲームフラグの管理
 	public void Game() {
-		log = (TextView) findViewById(R.id.log);
+		// log = (TextView) findViewById(R.id.log);
 
 		card.gameFlag = 0; // ゲームフラグ、場札と手札1～5の種類と数字を比較し、場札に出せる手札が無かったら1加算していく
 		for (int i = 0; i < 5; i++) {
@@ -254,13 +271,11 @@ public class MainActivity extends Activity {
 		}
 
 		if (card.gameFlag == 10) {
-			log.setText("GAME OVER");
+			// log.setText("GAME OVER");
 		} else if (card.chainNum == 52) {
 			DeleteNum(card.nowLayoutNum);
-			// layout.setText(" ");
-			log.setText("GAME CLEAR");
+			// log.setText("GAME CLEAR");
 		}
-		// Log.d(TAG, "フラグ" + gameFlag);
 	}// Card.Game_**********
 
 	// BoldNum関数…場札に置いたトランプの数字をガイド上で太字・シアンにする処理
@@ -289,7 +304,6 @@ public class MainActivity extends Activity {
 
 	// DeleteNum関数…場札に置いたトランプの数字をガイド上から消す処理
 	public void DeleteNum(int x) {
-
 		// getResources()でリソースオブジェクトを
 		Resources res = getResources();
 		// guideIdという変数にリソースの場所を格納する
@@ -308,14 +322,15 @@ public class MainActivity extends Activity {
 	// ////////////////////////////////////////////////
 
 	// リセットボタンの代価
-	public void test_onClick(View View) {
-		if (card.gameFlag == 10) {
-			setContentView(R.layout.activity_main);
-			card.Shuffle();
-			Deal();
-		}
-	}
+	// public void test_onClick(View View) {
+	// if (card.gameFlag == 10) {
+	// setContentView(R.layout.activity_main);
+	// card.Shuffle();
+	// Deal();
+	// }
+	// }
 
+	// Layoutファイルにメソッド名を記述する方法
 	// 手札1に配置したボタンをクリックした時の処理
 	public void hand1_onClick(View view) {
 		TextView hand1 = (TextView) findViewById(R.id.hand1);
@@ -359,6 +374,53 @@ public class MainActivity extends Activity {
 
 		if (!(hand5.getText().equals(" "))) {
 			Click(4);
+		}
+	}
+
+	// COLLECTボタンを押したときの処理
+
+	// COLLECTボタンを押したときの処理
+	public void colBtn_onClick(View view) {
+
+		if (0 < coin.getWager()) {
+			coin.cancelBet();
+			wager.setText(String.valueOf(coin.getWager()));
+			credit.setText(String.valueOf(coin.getCredit()));
+		}
+	}
+
+	// DOUBLE DOWNボタンを押したときの処理
+	public void ddBtn_onClick(View view) {
+
+	}
+
+	// 1 BETボタンを押したときの処理
+	public void betBtn_onClick(View view) {
+		coin.minBet();
+
+		wager.setText(String.valueOf(coin.getWager()));
+		credit.setText(String.valueOf(coin.getCredit()));
+
+	}
+
+	// MAX BETボタンを押したときの処理
+	public void maxBtn_onClick(View view) {
+		coin.maxBet();
+
+		wager.setText(String.valueOf(coin.getWager()));
+		credit.setText(String.valueOf(coin.getCredit()));
+	}
+
+	// PLAYボタンを押したときの処理
+	public void playBtn_onClick(View view) {
+
+		
+		// 最小BET数を満たしていたらゲーム開始
+		if (coin.getWager() > coin.getMinbet()) {
+
+			// 手札を非表示にして、コイン操作画面を表示する
+			handLo.setVisibility(View.VISIBLE);
+			coinLo.setVisibility(View.GONE);
 		}
 	}
 
