@@ -2,13 +2,13 @@ package com.example.whatifclone;
 
 public class Coin {
 
-	private int credit = 100;// ƒvƒŒƒCƒ„[‚ÌƒRƒCƒ“–‡”i‰Šú’l100j
-	private int wager = 0;// Š|‚¯‹à
-	private int win = 0;// Šl“¾‹à
-	private int paid = 0;// •¥–ß‹àiŠl“¾‹à)
+	private int credit = 100;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚³ã‚¤ãƒ³æšæ•°ï¼ˆåˆæœŸå€¤100ï¼‰
+	private int wager = 0;// æ›ã‘é‡‘
+	private int win = 0;// ç²å¾—é‡‘
+	private int paid = 0;// æ‰•æˆ»é‡‘ï¼ˆç²å¾—é‡‘)
 
-	private int minbet = 1;// Å¬BET”
-	private int maxbet = 10;// Å‘åBET”
+	private int minbet = 1;// æœ€å°BETæ•°
+	private int maxbet = 10;// æœ€å¤§BETæ•°
 
 	public int getCredit() {
 		return credit;
@@ -58,19 +58,19 @@ public class Coin {
 		this.maxbet = maxbet;
 	}
 
-	// ƒRƒCƒ“‚ğ1–‡ƒxƒbƒg‚·‚éˆ—
+	// ã‚³ã‚¤ãƒ³ã‚’1æšãƒ™ãƒƒãƒˆã™ã‚‹å‡¦ç†
 	public void minBet() {
 
-		// ŠƒRƒCƒ“‚ª0ˆÈã‚©‚ÂŠ|‚¯‹à‚ª10ˆÈ‰º‚Ìê‡‚Éƒxƒbƒg‰Â”\
+		// æ‰€æŒã‚³ã‚¤ãƒ³ãŒ0ä»¥ä¸Šã‹ã¤æ›ã‘é‡‘ãŒ10ä»¥ä¸‹ã®å ´åˆã«ãƒ™ãƒƒãƒˆå¯èƒ½
 		if ((0 < credit) && (wager < maxbet)) {
 			credit--;
 			wager++;
 		}
 	}
 
-	// ƒRƒCƒ“‚ğŠ|‚¯‹à‚ÌMAX(10–‡)‚Ü‚Åˆê“x‚Éƒxƒbƒg‚·‚éˆ—
+	// ã‚³ã‚¤ãƒ³ã‚’æ›ã‘é‡‘ã®MAX(10æš)ã¾ã§ä¸€åº¦ã«ãƒ™ãƒƒãƒˆã™ã‚‹å‡¦ç†
 	public void maxBet() {
-		// ŠƒRƒCƒ“‚ª0ˆÈã‚©‚ÂŠ|‚¯‹à‚ª10ˆÈ‰º‚Ìê‡‚Éƒxƒbƒg‰Â”\
+		// æ‰€æŒã‚³ã‚¤ãƒ³ãŒ0ä»¥ä¸Šã‹ã¤æ›ã‘é‡‘ãŒ10ä»¥ä¸‹ã®å ´åˆã«ãƒ™ãƒƒãƒˆå¯èƒ½
 		if ((0 < credit) && (wager == 0)) {
 			credit -= maxbet;
 			wager += maxbet;
@@ -80,27 +80,27 @@ public class Coin {
 		}
 	}
 
-	// “Š“üƒRƒCƒ“‚Ì–‡”‚ğƒLƒƒƒ“ƒZƒ‹‚·‚éˆ—
+	// æŠ•å…¥ã‚³ã‚¤ãƒ³ã®æšæ•°ã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã™ã‚‹å‡¦ç†
 	public void cancelBet() {
 		credit += wager;
 		wager = 0;
 
 	}
 
-	// ƒRƒCƒ“‚ğ‰ÁZ‚·‚éˆ—
+	// ã‚³ã‚¤ãƒ³ã‚’åŠ ç®—ã™ã‚‹å‡¦ç†
 	public void addCoin(int x) {
 
 	}
 
-	// ƒRƒCƒ“‚ğŒ¸Z‚éˆ—
+	// ã‚³ã‚¤ãƒ³ã‚’æ¸›ç®—ã‚‹å‡¦ç†
 	public void removeCoin(int x) {
 
 	}
 
-	// •¥‚¢–ß‚µˆ—
+	// æ‰•ã„æˆ»ã—å‡¦ç†
 	public int paidCoin(int x) {
-		// 0`win(Šl“¾‹à)‚Ü‚Å1‚¸‚ÂƒJƒEƒ“ƒgƒAƒbƒv‚µ‚Ä‚¢‚­
-		// ‚ ‚í‚¹‚Äcredits‚ÌƒRƒCƒ“–‡”‚à1‚¸‚ÂƒJƒEƒ“ƒgƒAƒbƒv‚µ‚Ä‚¢‚­
+		// 0ï½win(ç²å¾—é‡‘)ã¾ã§1ãšã¤ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—ã—ã¦ã„ã
+		// ã‚ã‚ã›ã¦creditsã®ã‚³ã‚¤ãƒ³æšæ•°ã‚‚1ãšã¤ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—ã—ã¦ã„ã
 
 		// paid += wager;
 

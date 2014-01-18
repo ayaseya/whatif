@@ -14,35 +14,35 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	// LogCat—p‚Ìƒ^ƒO‚ğ’è”‚Å’è‹`‚·‚é
+	// LogCatç”¨ã®ã‚¿ã‚°ã‚’å®šæ•°ã§å®šç¾©ã™ã‚‹
 	public static final String TAG = "Test";
 
 	/* ********** ********** ********** ********** */
 
-	// ƒNƒ‰ƒX‚ğéŒ¾‚·‚é
+	// ã‚¯ãƒ©ã‚¹ã‚’å®£è¨€ã™ã‚‹
 	Card card = new Card();
 	Coin coin = new Coin();
 
-	// ‰æ–Êî•ñŠÖ˜A‚ÌView‚ğéŒ¾
-	TextView layout; // êD
-	TextView count; // ƒJƒEƒ“ƒ^[
-	TextView cc1; // ƒ{[ƒiƒX•\¦
-	TextView cc2; // ƒ{[ƒiƒX•\¦
-	TextView cc3; // ƒ{[ƒiƒX•\¦
-	TextView cb1; // ƒ{[ƒiƒX•\¦
-	TextView cb2; // ƒ{[ƒiƒX•\¦
-	TextView cb3; // ƒ{[ƒiƒX•\¦
-	TextView guideView; // ƒKƒCƒh•\¦
+	// ç”»é¢æƒ…å ±é–¢é€£ã®Viewã‚’å®£è¨€
+	TextView layout; // å ´æœ­
+	TextView count; // ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
+	TextView cc1; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView cc2; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView cc3; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView cb1; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView cb2; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView cb3; // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+	TextView guideView; // ã‚¬ã‚¤ãƒ‰è¡¨ç¤º
 
-	// ŠƒRƒCƒ“”ABET”‚ÌŠÖ˜A‚ÌView‚ğéŒ¾
+	// æ‰€æŒã‚³ã‚¤ãƒ³æ•°ã€BETæ•°ã®é–¢é€£ã®Viewã‚’å®£è¨€
 	TextView wager;
 	TextView win;
 	TextView paid;
 	TextView credit;
 
-	RelativeLayout handLo;// èD•\¦‚ÌƒŒƒCƒAƒEƒg
-	LinearLayout coinLo;// ƒRƒCƒ“‘€ì‚ÌƒŒƒCƒAƒEƒg
-	LinearLayout guideLo;// ƒKƒCƒh‚ÌƒŒƒCƒAƒEƒg
+	RelativeLayout handLo;// æ‰‹æœ­è¡¨ç¤ºã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+	LinearLayout coinLo;// ã‚³ã‚¤ãƒ³æ“ä½œã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+	LinearLayout guideLo;// ã‚¬ã‚¤ãƒ‰ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 	
 
 	/* ********** ********** ********** ********** */
@@ -51,16 +51,16 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); // ƒ^ƒCƒgƒ‹ƒo[‚ğ”ñ•\¦‚É‚·‚é
+		requestWindowFeature(Window.FEATURE_NO_TITLE); // ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼ã‚’éè¡¨ç¤ºã«ã™ã‚‹
 		setContentView(R.layout.activity_main);
 
-		Log.d(TAG, "‰æ–Ê¶¬csuccess");
+		Log.d(TAG, "ç”»é¢ç”Ÿæˆâ€¦success");
 
 		setCard();
 		prepareResource();
 		redrawCoin();
 
-		// èD‚ğ”ñ•\¦‚É‚µ‚ÄAƒRƒCƒ“‘€ì‰æ–Ê‚ğ•\¦‚·‚é
+		// æ‰‹æœ­ã‚’éè¡¨ç¤ºã«ã—ã¦ã€ã‚³ã‚¤ãƒ³æ“ä½œç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
 		handLo.setVisibility(View.GONE);
 		coinLo.setVisibility(View.VISIBLE);
 
@@ -75,30 +75,30 @@ public class MainActivity extends Activity {
 
 	/* ********** ********** ********** ********** */
 
-	// ƒŠƒ\[ƒX
+	// ãƒªã‚½ãƒ¼ã‚¹
 	public void prepareResource() {
 
-		layout = (TextView) findViewById(R.id.layout);// êD•\¦
+		layout = (TextView) findViewById(R.id.layout);// å ´æœ­è¡¨ç¤º
 		wager = (TextView) findViewById(R.id.wager);//
 		win = (TextView) findViewById(R.id.win);//
 		paid = (TextView) findViewById(R.id.paid);//
 		credit = (TextView) findViewById(R.id.credit);//
 
-		cc1 = (TextView) findViewById(R.id.cChain1); // ƒ{[ƒiƒX•\¦
-		cc2 = (TextView) findViewById(R.id.cChain2); // ƒ{[ƒiƒX•\¦
-		cc3 = (TextView) findViewById(R.id.cChain3); // ƒ{[ƒiƒX•\¦
+		cc1 = (TextView) findViewById(R.id.cChain1); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cc2 = (TextView) findViewById(R.id.cChain2); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cc3 = (TextView) findViewById(R.id.cChain3); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
 
-		cb1 = (TextView) findViewById(R.id.cBonus1); // ƒ{[ƒiƒX•\¦
-		cb2 = (TextView) findViewById(R.id.cBonus2); // ƒ{[ƒiƒX•\¦
-		cb3 = (TextView) findViewById(R.id.cBonus3); // ƒ{[ƒiƒX•\¦
+		cb1 = (TextView) findViewById(R.id.cBonus1); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cb2 = (TextView) findViewById(R.id.cBonus2); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cb3 = (TextView) findViewById(R.id.cBonus3); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
 
-		handLo = (RelativeLayout) findViewById(R.id.HandLayout); // èD•\¦‚ÌƒŒƒCƒAƒEƒg
-		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // ƒRƒCƒ“‘€ì‚ÌƒŒƒCƒAƒEƒg
-		guideLo = (LinearLayout) findViewById(R.id.GuideLayout); // ƒRƒCƒ“‘€ì‚ÌƒŒƒCƒAƒEƒg
+		handLo = (RelativeLayout) findViewById(R.id.HandLayout); // æ‰‹æœ­è¡¨ç¤ºã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // ã‚³ã‚¤ãƒ³æ“ä½œã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
+		guideLo = (LinearLayout) findViewById(R.id.GuideLayout); // ã‚³ã‚¤ãƒ³æ“ä½œã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆ
 
 	}
 
-	// setCardŠÖ”cƒŠƒ\[ƒX‚©‚ç52–‡•ª‚Ìƒgƒ‰ƒ“ƒv‚Ì•¶š—ñ‚ğ”z—ñ‚Éæ“¾‚·‚é
+	// setCardé–¢æ•°â€¦ãƒªã‚½ãƒ¼ã‚¹ã‹ã‚‰52æšåˆ†ã®ãƒˆãƒ©ãƒ³ãƒ—ã®æ–‡å­—åˆ—ã‚’é…åˆ—ã«å–å¾—ã™ã‚‹
 	public void setCard() {
 		Resources res = getResources();
 
@@ -110,9 +110,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// dealCardŠÖ”cèD‚É5–‡ƒJ[ƒh‚ğ”z‚éˆ—
+	// dealCardé–¢æ•°â€¦æ‰‹æœ­ã«5æšã‚«ãƒ¼ãƒ‰ã‚’é…ã‚‹å‡¦ç†
 	public void dealCard() {
-		// TextView‚ğ”z—ñ‚ÅéŒ¾‚·‚é
+		// TextViewã‚’é…åˆ—ã§å®£è¨€ã™ã‚‹
 		int[] handId = { R.id.hand1, R.id.hand2, R.id.hand3, R.id.hand4,
 				R.id.hand5 };
 		TextView[] hand = new TextView[handId.length];
@@ -120,10 +120,10 @@ public class MainActivity extends Activity {
 			hand[i] = (TextView) findViewById(handId[i]);
 		}
 
-		// ƒŒƒCƒAƒEƒg‚É”z’u‚µ‚½•”•i‚Éstring.xml‚Ì•¶š—ñ‚ğ‘}“ü‚·‚é
+		// ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«é…ç½®ã—ãŸéƒ¨å“ã«string.xmlã®æ–‡å­—åˆ—ã‚’æŒ¿å…¥ã™ã‚‹
 
 		layout.setText("-");
-		Log.d(TAG, "testcsuccess");
+		Log.d(TAG, "testâ€¦success");
 		redrawCoin();
 
 		cb1.setText(String.valueOf(card.rate52(1)));
@@ -132,44 +132,44 @@ public class MainActivity extends Activity {
 
 		hand[0].setText(card.Display(card.list.get(0)));
 		card.nowHandNum[0] = card.list.get(0);
-		// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+		// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 		yellowNum(card.nowHandNum[0]);
 
 		hand[1].setText(card.Display(card.list.get(1)));
 		card.nowHandNum[1] = card.list.get(1);
-		// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+		// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 		yellowNum(card.nowHandNum[1]);
 
 		hand[2].setText(card.Display(card.list.get(2)));
 		card.nowHandNum[2] = card.list.get(2);
-		// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+		// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 		yellowNum(card.nowHandNum[2]);
 
 		hand[3].setText(card.Display(card.list.get(3)));
 		card.nowHandNum[3] = card.list.get(3);
-		// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+		// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 		yellowNum(card.nowHandNum[3]);
 
 		hand[4].setText(card.Display(card.list.get(4)));
 		card.nowHandNum[4] = card.list.get(4);
-		// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+		// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 		yellowNum(card.nowHandNum[4]);
 
 		card.deckNum = 4;
 		card.chainNum = 0;
 
-		// ƒ{[ƒiƒX•”•ª‚ÌƒŒƒCƒAƒEƒg‚É–‡”‚ğ“ü‚ê‚é
+		// ãƒœãƒ¼ãƒŠã‚¹éƒ¨åˆ†ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«æšæ•°ã‚’å…¥ã‚Œã‚‹
 		cc1.setText(String.valueOf(card.chainNum + 1) + " CARDS");
 		cc2.setText(String.valueOf(card.chainNum + 2) + " CARDS");
 		cc3.setText(String.valueOf(card.chainNum + 3) + " CARDS");
 
-		Log.d(TAG, "dealCard()csuccess");
+		Log.d(TAG, "dealCard()â€¦success");
 	}// Deal_**********
 
-	// ClickŠÖ”cƒgƒ‰ƒ“ƒv‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹““®
+	// Clické–¢æ•°â€¦ãƒˆãƒ©ãƒ³ãƒ—ã‚’æŠ¼ã—ãŸã¨ãã®æŒ™å‹•
 	public void onClick(int x) {
 
-		// èD‚ğ”z—ñ‚ÅéŒ¾‚·‚é
+		// æ‰‹æœ­ã‚’é…åˆ—ã§å®£è¨€ã™ã‚‹
 		int[] handId = { R.id.hand1, R.id.hand2, R.id.hand3, R.id.hand4,
 				R.id.hand5 };
 		TextView[] hand = new TextView[handId.length];
@@ -177,39 +177,39 @@ public class MainActivity extends Activity {
 			hand[i] = (TextView) findViewById(handId[i]);
 		}
 
-		layout = (TextView) findViewById(R.id.layout); // êD
-		count = (TextView) findViewById(R.id.countView); // ƒJƒEƒ“ƒ^[
-		cc1 = (TextView) findViewById(R.id.cChain1); // ƒ{[ƒiƒX•\¦
-		cc2 = (TextView) findViewById(R.id.cChain2); // ƒ{[ƒiƒX•\¦
-		cc3 = (TextView) findViewById(R.id.cChain3); // ƒ{[ƒiƒX•\¦
+		layout = (TextView) findViewById(R.id.layout); // å ´æœ­
+		count = (TextView) findViewById(R.id.countView); // ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
+		cc1 = (TextView) findViewById(R.id.cChain1); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cc2 = (TextView) findViewById(R.id.cChain2); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
+		cc3 = (TextView) findViewById(R.id.cChain3); // ãƒœãƒ¼ãƒŠã‚¹è¡¨ç¤º
 
-		// TextView‚Ì•¶šF‚ğ•ÏX‚·‚éi16i”‚Å“ª‚Ì2bit‚ªƒAƒ‹ƒtƒ@’lA00‚Å“§‰ß—¦100%j
+		// TextViewã®æ–‡å­—è‰²ã‚’å¤‰æ›´ã™ã‚‹ï¼ˆ16é€²æ•°ã§é ­ã®2bitãŒã‚¢ãƒ«ãƒ•ã‚¡å€¤ã€00ã§é€éç‡100%ï¼‰
 		cc1.setTextColor(0xFFFFFFFF);
 		cb1.setTextColor(0xFFFF0000);
-		// ƒtƒHƒ“ƒg‚ÌƒXƒ^ƒCƒ‹i‘¾šAÎü‚È‚Çj‚ğ•ÏX‚·‚é
-		// ”wŒiF‚ğ•ÏX‚·‚é
+		// ãƒ•ã‚©ãƒ³ãƒˆã®ã‚¹ã‚¿ã‚¤ãƒ«ï¼ˆå¤ªå­—ã€æ–œç·šãªã©ï¼‰ã‚’å¤‰æ›´ã™ã‚‹
+		// èƒŒæ™¯è‰²ã‚’å¤‰æ›´ã™ã‚‹
 		cc1.setBackgroundColor(0xFFFF0000);
 		cb1.setBackgroundColor(0xFFFFFFFF);
 
 		if (layout.getText().equals("-")) {
 
-			// êD‚ÉèDx‚ğ’u‚­
+			// å ´æœ­ã«æ‰‹æœ­xã‚’ç½®ã
 			card.nowLayoutNum = card.nowHandNum[x];
 			layout.setText(card.Display(card.nowHandNum[x]));
 
-			// êD‚É’u‚¢‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‹­’²•\¦‚·‚é
+			// å ´æœ­ã«ç½®ã„ãŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§å¼·èª¿è¡¨ç¤ºã™ã‚‹
 			boldNum(card.nowLayoutNum);
 
-			// èD‚ÉRD‚©‚çˆê–‡ˆø‚¢‚Ä‚­‚é
+			// æ‰‹æœ­ã«å±±æœ­ã‹ã‚‰ä¸€æšå¼•ã„ã¦ãã‚‹
 			hand[x].setText(card.Display(card.list.get(card.deckNum + 1)));
 			card.nowHandNum[x] = card.list.get(card.deckNum + 1);
 
-			// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+			// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 			yellowNum(card.nowHandNum[x]);
 
-			// 1–‡ˆø‚¢‚½•ª‚ğ‰ÁZ‚·‚é
+			// 1æšå¼•ã„ãŸåˆ†ã‚’åŠ ç®—ã™ã‚‹
 			card.deckNum++;
-			// 1–‡’u‚¢‚½•ª‚ğ‰ÁZ‚·‚é
+			// 1æšç½®ã„ãŸåˆ†ã‚’åŠ ç®—ã™ã‚‹
 			card.chainNum++;
 			count.setText(String.valueOf(card.chainNum));
 
@@ -220,22 +220,22 @@ public class MainActivity extends Activity {
 				|| (card.Rank(card.nowLayoutNum) == card
 						.Rank(card.nowHandNum[x]))) {
 
-			// @1‚Â‘O‚ÉêD‚É’u‚©‚ê‚Ä‚¢‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚©‚çÁ‚·
+			// ã€€1ã¤å‰ã«å ´æœ­ã«ç½®ã‹ã‚Œã¦ã„ãŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã‹ã‚‰æ¶ˆã™
 			deleteNum(card.nowLayoutNum);
 
-			// êD‚ÉèD‚ğ’u‚­
+			// å ´æœ­ã«æ‰‹æœ­ã‚’ç½®ã
 			card.nowLayoutNum = card.nowHandNum[x];
 			layout.setText(card.Display(card.nowHandNum[x]));
 
-			// êD‚É’u‚¢‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‹­’²•\¦‚·‚é
+			// å ´æœ­ã«ç½®ã„ãŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§å¼·èª¿è¡¨ç¤ºã™ã‚‹
 			boldNum(card.nowLayoutNum);
 
 			if ((0 < card.chainNum) && (card.chainNum < 47)) {
-				// èD‚ÉRD‚©‚çˆê–‡ˆø‚¢‚Ä‚­‚é
+				// æ‰‹æœ­ã«å±±æœ­ã‹ã‚‰ä¸€æšå¼•ã„ã¦ãã‚‹
 				hand[x].setText(card.Display(card.list.get(card.deckNum + 1)));
 				card.nowHandNum[x] = card.list.get(card.deckNum + 1);
 
-				// èD‚Éˆø‚¢‚Ä‚«‚½ƒJ[ƒh‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É•ÏX‚·‚é
+				// æ‰‹æœ­ã«å¼•ã„ã¦ããŸã‚«ãƒ¼ãƒ‰ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«å¤‰æ›´ã™ã‚‹
 				yellowNum(card.nowHandNum[x]);
 				card.deckNum++;
 				card.chainNum++;
@@ -247,18 +247,18 @@ public class MainActivity extends Activity {
 
 			count.setText(String.valueOf(card.chainNum));
 
-			// ƒ{[ƒiƒX•”•ª‚ÌƒŒƒCƒAƒEƒg‚É–‡”‚ğ“ü‚ê‚é
+			// ãƒœãƒ¼ãƒŠã‚¹éƒ¨åˆ†ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«æšæ•°ã‚’å…¥ã‚Œã‚‹
 			redrawBonus(card.chainNum);
 
 			judgeGame();
 		}
 	}// Card.Click_**********
 
-	// judgeGameŠÖ”cƒQ[ƒ€ƒtƒ‰ƒO‚ÌŠÇ—
+	// judgeGameé–¢æ•°â€¦ã‚²ãƒ¼ãƒ ãƒ•ãƒ©ã‚°ã®ç®¡ç†
 	public void judgeGame() {
 		// log = (TextView) findViewById(R.id.log);
 
-		card.gameFlag = 0; // ƒQ[ƒ€ƒtƒ‰ƒOAêD‚ÆèD1`5‚Ìí—Ş‚Æ”š‚ğ”äŠr‚µAêD‚Éo‚¹‚éèD‚ª–³‚©‚Á‚½‚ç1‰ÁZ‚µ‚Ä‚¢‚­
+		card.gameFlag = 0; // ã‚²ãƒ¼ãƒ ãƒ•ãƒ©ã‚°ã€å ´æœ­ã¨æ‰‹æœ­1ï½5ã®ç¨®é¡ã¨æ•°å­—ã‚’æ¯”è¼ƒã—ã€å ´æœ­ã«å‡ºã›ã‚‹æ‰‹æœ­ãŒç„¡ã‹ã£ãŸã‚‰1åŠ ç®—ã—ã¦ã„ã
 		for (int i = 0; i < 5; i++) {
 			if (card.Suit(card.nowLayoutNum) != card.Suit(card.nowHandNum[i])) {
 				card.gameFlag += 1;
@@ -271,75 +271,75 @@ public class MainActivity extends Activity {
 		if (card.gameFlag == 10) {
 			// log.setText("GAME OVER");
 			String.valueOf(coin.paidCoin(coin.getWager()
-					* card.rate52[card.chainNum]));// •¥–ß‹à
+					* card.rate52[card.chainNum]));// æ‰•æˆ»é‡‘
 
 			redrawCoin();
 
-			// èD‚ğ”ñ•\¦‚É‚µ‚ÄAƒRƒCƒ“‘€ì‰æ–Ê‚ğ•\¦‚·‚é
+			// æ‰‹æœ­ã‚’éè¡¨ç¤ºã«ã—ã¦ã€ã‚³ã‚¤ãƒ³æ“ä½œç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
 
-			Log.d(TAG, "GAME OVERcsuccess");
+			Log.d(TAG, "GAME OVERâ€¦success");
 		} else if (card.chainNum == 52) {
 			deleteNum(card.nowLayoutNum);
 			String.valueOf(coin.paidCoin(coin.getWager()
-					* card.rate52[card.chainNum]));// •¥–ß‹à
+					* card.rate52[card.chainNum]));// æ‰•æˆ»é‡‘
 
 			redrawCoin();
 
-			// èD‚ğ”ñ•\¦‚É‚µ‚ÄAƒRƒCƒ“‘€ì‰æ–Ê‚ğ•\¦‚·‚é
+			// æ‰‹æœ­ã‚’éè¡¨ç¤ºã«ã—ã¦ã€ã‚³ã‚¤ãƒ³æ“ä½œç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
 
-			Log.d(TAG, "GAME CLEARcsuccess");
+			Log.d(TAG, "GAME CLEARâ€¦success");
 			// log.setText("GAME CLEAR");
 		}
 		
 		
 	}// judgeGame_**********
 
-	// boldNumŠÖ”cêD‚É’u‚¢‚½ƒgƒ‰ƒ“ƒv‚Ì”š‚ğƒKƒCƒhã‚Å‘¾šEƒVƒAƒ“‚É‚·‚éˆ—
+	// boldNumé–¢æ•°â€¦å ´æœ­ã«ç½®ã„ãŸãƒˆãƒ©ãƒ³ãƒ—ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§å¤ªå­—ãƒ»ã‚·ã‚¢ãƒ³ã«ã™ã‚‹å‡¦ç†
 	public void boldNum(int x) {
 		Resources res = getResources();
 		int guideId = res.getIdentifier("card" + x, "id", getPackageName());
 		guideView = (TextView) findViewById(guideId);
-		// TextView‚Ì•¶šF‚ğ•ÏX‚·‚éi16i”‚Å“ª‚Ì2bit‚ªƒAƒ‹ƒtƒ@’lA00‚Å“§‰ß—¦100%j
+		// TextViewã®æ–‡å­—è‰²ã‚’å¤‰æ›´ã™ã‚‹ï¼ˆ16é€²æ•°ã§é ­ã®2bitãŒã‚¢ãƒ«ãƒ•ã‚¡å€¤ã€00ã§é€éç‡100%ï¼‰
 		guideView.setTextColor(0xFF00BFFF);
-		// ƒtƒHƒ“ƒg‚ÌƒXƒ^ƒCƒ‹i‘¾šAÎü‚È‚Çj‚ğ•ÏX‚·‚é
+		// ãƒ•ã‚©ãƒ³ãƒˆã®ã‚¹ã‚¿ã‚¤ãƒ«ï¼ˆå¤ªå­—ã€æ–œç·šãªã©ï¼‰ã‚’å¤‰æ›´ã™ã‚‹
 		guideView.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
 	}// Card.BoldNum_**********
 
-	// yellowNumŠÖ”cêD‚É’u‚¢‚½ƒgƒ‰ƒ“ƒv‚Ì”š‚ğƒKƒCƒhã‚Å‰©F‚É‚·‚éˆ—
+	// yellowNumé–¢æ•°â€¦å ´æœ­ã«ç½®ã„ãŸãƒˆãƒ©ãƒ³ãƒ—ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã§é»„è‰²ã«ã™ã‚‹å‡¦ç†
 	public void yellowNum(int x) {
 		Resources res = getResources();
 		int guideId = res.getIdentifier("card" + x, "id", getPackageName());
 		guideView = (TextView) findViewById(guideId);
-		// TextView‚Ì•¶šF‚ğ•ÏX‚·‚éi16i”‚Å“ª‚Ì2bit‚ªƒAƒ‹ƒtƒ@’lA00‚Å“§‰ß—¦100%j
+		// TextViewã®æ–‡å­—è‰²ã‚’å¤‰æ›´ã™ã‚‹ï¼ˆ16é€²æ•°ã§é ­ã®2bitãŒã‚¢ãƒ«ãƒ•ã‚¡å€¤ã€00ã§é€éç‡100%ï¼‰
 		guideView.setTextColor(0xFFFFD700);
-		// ƒtƒHƒ“ƒg‚ÌƒXƒ^ƒCƒ‹i‘¾šAÎü‚È‚Çj‚ğ•ÏX‚·‚é
+		// ãƒ•ã‚©ãƒ³ãƒˆã®ã‚¹ã‚¿ã‚¤ãƒ«ï¼ˆå¤ªå­—ã€æ–œç·šãªã©ï¼‰ã‚’å¤‰æ›´ã™ã‚‹
 		guideView.setTypeface(Typeface.DEFAULT_BOLD, Typeface.BOLD);
-		// ”wŒiF‚ğ•ÏX‚·‚é
+		// èƒŒæ™¯è‰²ã‚’å¤‰æ›´ã™ã‚‹
 		guideView.setBackgroundColor(0xFF7777FF);
 	}// Card.yellowNum_**********
 
-	// deleteNumŠÖ”cêD‚É’u‚¢‚½ƒgƒ‰ƒ“ƒv‚Ì”š‚ğƒKƒCƒhã‚©‚çÁ‚·ˆ—
+	// deleteNumé–¢æ•°â€¦å ´æœ­ã«ç½®ã„ãŸãƒˆãƒ©ãƒ³ãƒ—ã®æ•°å­—ã‚’ã‚¬ã‚¤ãƒ‰ä¸Šã‹ã‚‰æ¶ˆã™å‡¦ç†
 	public void deleteNum(int x) {
-		// getResources()‚ÅƒŠƒ\[ƒXƒIƒuƒWƒFƒNƒg‚ğ
+		// getResources()ã§ãƒªã‚½ãƒ¼ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’
 		Resources res = getResources();
-		// guideId‚Æ‚¢‚¤•Ï”‚ÉƒŠƒ\[ƒX‚ÌêŠ‚ğŠi”[‚·‚é
+		// guideIdã¨ã„ã†å¤‰æ•°ã«ãƒªã‚½ãƒ¼ã‚¹ã®å ´æ‰€ã‚’æ ¼ç´ã™ã‚‹
 		// ("card" + x , "id" , getPackageName())
-		// «
+		// â†“
 		// (R.id.card***)
 		int guideId = res.getIdentifier("card" + x, "id", getPackageName());
 		guideView = (TextView) findViewById(guideId);
 		guideView.setTextColor(0x00FFFFFF);
-		// ”wŒiF‚ğŒ³‚ÌÂF‚É–ß‚·
+		// èƒŒæ™¯è‰²ã‚’å…ƒã®é’è‰²ã«æˆ»ã™
 		guideView.setBackgroundColor(0xFF0000FF);
 	}// Card.DeleteNum_**********
 
 	public void redrawBonus(int x) {
 
-		// ƒ{[ƒiƒX•”•ª‚ÌƒŒƒCƒAƒEƒg‚É–‡”‚ğ“ü‚ê‚é
+		// ãƒœãƒ¼ãƒŠã‚¹éƒ¨åˆ†ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã«æšæ•°ã‚’å…¥ã‚Œã‚‹
 		if ((0 < card.chainNum) && (card.chainNum <= 50)) {
 			cc1.setText(String.valueOf(card.chainNum) + " CARDS");
 			cc2.setText(String.valueOf(card.chainNum + 1) + " CARDS");
@@ -384,11 +384,11 @@ public class MainActivity extends Activity {
 	}
 
 	// ////////////////////////////////////////////////
-	// ƒ{ƒ^ƒ“ƒNƒŠƒbƒN‚Ìˆ—
+	// ãƒœã‚¿ãƒ³ã‚¯ãƒªãƒƒã‚¯æ™‚ã®å‡¦ç†
 	// ////////////////////////////////////////////////
 
-	// Layoutƒtƒ@ƒCƒ‹‚Éƒƒ\ƒbƒh–¼‚ğ‹Lq‚·‚é•û–@
-	// èD1‚É”z’u‚µ‚½ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Ìˆ—
+	// Layoutãƒ•ã‚¡ã‚¤ãƒ«ã«ãƒ¡ã‚½ãƒƒãƒ‰åã‚’è¨˜è¿°ã™ã‚‹æ–¹æ³•
+	// æ‰‹æœ­1ã«é…ç½®ã—ãŸãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸæ™‚ã®å‡¦ç†
 	public void hand1_onClick(View view) {
 		TextView hand1 = (TextView) findViewById(R.id.hand1);
 
@@ -397,7 +397,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// èD2‚É”z’u‚µ‚½ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Ìˆ—
+	// æ‰‹æœ­2ã«é…ç½®ã—ãŸãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸæ™‚ã®å‡¦ç†
 	public void hand2_onClick(View view) {
 		TextView hand2 = (TextView) findViewById(R.id.hand2);
 
@@ -407,7 +407,7 @@ public class MainActivity extends Activity {
 
 	}
 
-	// èD3‚É”z’u‚µ‚½ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Ìˆ—
+	// æ‰‹æœ­3ã«é…ç½®ã—ãŸãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸæ™‚ã®å‡¦ç†
 	public void hand3_onClick(View view) {
 		TextView hand3 = (TextView) findViewById(R.id.hand3);
 
@@ -416,7 +416,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// èD4‚É”z’u‚µ‚½ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Ìˆ—
+	// æ‰‹æœ­4ã«é…ç½®ã—ãŸãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸæ™‚ã®å‡¦ç†
 	public void hand4_onClick(View view) {
 		TextView hand4 = (TextView) findViewById(R.id.hand4);
 
@@ -425,7 +425,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// èD5‚É”z’u‚µ‚½ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚½‚Ìˆ—
+	// æ‰‹æœ­5ã«é…ç½®ã—ãŸãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸæ™‚ã®å‡¦ç†
 	public void hand5_onClick(View view) {
 		TextView hand5 = (TextView) findViewById(R.id.hand5);
 
@@ -434,7 +434,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// COLLECTƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
+	// COLLECTãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†
 	public void colBtn_onClick(View view) {
 
 		if (0 < coin.getWager()) {
@@ -444,15 +444,15 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	// DOUBLE DOWNƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
+	// DOUBLE DOWNãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†
 	public void ddBtn_onClick(View view) {
 
 		setContentView(R.layout.activity_main);
-		Log.d(TAG, "Ä•`‰æcsuccess");
+		Log.d(TAG, "å†æç”»â€¦success");
 
 	}
 
-	// 1 BETƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
+	// 1 BETãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†
 	public void betBtn_onClick(View view) {
 		coin.minBet();
 
@@ -460,7 +460,7 @@ public class MainActivity extends Activity {
 		credit.setText(String.valueOf(coin.getCredit()));
 	}
 
-	// MAX BETƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
+	// MAX BETãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†
 	public void maxBtn_onClick(View view) {
 		coin.maxBet();
 
@@ -469,40 +469,39 @@ public class MainActivity extends Activity {
 
 	}
 
-	// PLAYƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
+	// PLAYãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®å‡¦ç†
 	public void playBtn_onClick(View view) {
 
-		// Å¬BET”‚ğ–‚½‚µ‚Ä‚¢‚½‚çƒQ[ƒ€ŠJn
+		// æœ€å°BETæ•°ã‚’æº€ãŸã—ã¦ã„ãŸã‚‰ã‚²ãƒ¼ãƒ é–‹å§‹
 		if (card.gameFlag == 0 && coin.getWager() >= coin.getMinbet()) {
 
 			card.Shuffle();
 			dealCard();
 
-			// èD‚ğ”ñ•\¦‚É‚µ‚ÄAƒRƒCƒ“‘€ì‰æ–Ê‚ğ•\¦‚·‚é
+			// æ‰‹æœ­ã‚’éè¡¨ç¤ºã«ã—ã¦ã€ã‚³ã‚¤ãƒ³æ“ä½œç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
 			
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
 			
-			Log.d(TAG, "‰‰ñƒvƒŒƒCcsuccess");
+			Log.d(TAG, "åˆå›ãƒ—ãƒ¬ã‚¤â€¦success");
 			
 		} else if (card.gameFlag == 10 && coin.getWager() >= coin.getMinbet()) {
 			
 			card.Shuffle();
 			dealCard();
 
-			// èD‚ğ”ñ•\¦‚É‚µ‚ÄAƒRƒCƒ“‘€ì‰æ–Ê‚ğ•\¦‚·‚é
+			// æ‰‹æœ­ã‚’éè¡¨ç¤ºã«ã—ã¦ã€ã‚³ã‚¤ãƒ³æ“ä½œç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
-			Log.d(TAG, "2‰ñ–ÚˆÈ~‚ÌƒvƒŒƒCcsuccess");
+			Log.d(TAG, "2å›ç›®ä»¥é™ã®ãƒ—ãƒ¬ã‚¤â€¦success");
 
 		} else if (card.chainNum == 52 && coin.getWager() >= coin.getMinbet()) {
 
 			
-			Log.d(TAG, "ƒNƒŠƒAŒã‚ÌƒvƒŒƒCcsuccess");
+			Log.d(TAG, "ã‚¯ãƒªã‚¢å¾Œã®ãƒ—ãƒ¬ã‚¤â€¦success");
 
 		}
 
 	}
 
 }// MainActivity_**********
-

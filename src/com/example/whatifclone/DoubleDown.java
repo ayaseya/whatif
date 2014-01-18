@@ -3,10 +3,10 @@ package com.example.whatifclone;
 public class DoubleDown {
 	
 	//High&Low
-	//DOUBLEƒ{ƒ^ƒ“
-	//COLLECTƒ{ƒ^ƒ“
+	//DOUBLEãƒœã‚¿ãƒ³
+	//COLLECTãƒœã‚¿ãƒ³
 	
-	//¶‚©‚çuŒˆ’èvuƒn[ƒtƒ_ƒuƒ‹vu1–‡ƒxƒbƒgvu“¯”ƒxƒbƒgv
+	//å·¦ã‹ã‚‰ã€Œæ±ºå®šã€ã€Œãƒãƒ¼ãƒ•ãƒ€ãƒ–ãƒ«ã€ã€Œ1æžšãƒ™ãƒƒãƒˆã€ã€ŒåŒæ•°ãƒ™ãƒƒãƒˆã€
 	//[COLLECT/PAYOUT][HALF DOUBLE][1 BET][MAX BET/REPEAT BET][DEAL DRAW DOUBLE]
 
 }
