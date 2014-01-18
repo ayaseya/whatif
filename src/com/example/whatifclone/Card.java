@@ -5,10 +5,14 @@ import java.util.Collections;
 
 // トランプ（playing cards）の情報を管理するクラス
 public class Card {
-	
+
 	int[] nowHandNum = new int[5]; // 現在の手札の情報（連番）を保持する変数
 	int nowLayoutNum = 0; // 現在の山札の情報（連番）を保持する変数
 	int gameFlag = 0; // ゲーム進行（GAMEOVEやGAMECLEAR）を判定する変数
+	
+	int[] rate52 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3,
+			3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 10, 10, 12, 12, 14, 14, 16,
+			18, 20, 22, 25, 30, 35, 40, 45, 50, 55, 60, 80, 100 };
 
 	// 山札の順番を保存する配列を宣言する
 	ArrayList<Integer> list;
@@ -88,5 +92,11 @@ public class Card {
 		String str = cardInfo[x];
 		return str;
 	}// Display_**********
+
+	public int rate52(int x){ 
+	
+	return rate52[x-1];
+
+	}
 
 }// Card_**********

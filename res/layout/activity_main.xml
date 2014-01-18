@@ -1046,7 +1046,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/test"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -1055,7 +1054,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/test"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -1064,7 +1062,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/test"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -1073,7 +1070,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/test"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
         </LinearLayout>
@@ -1082,6 +1078,7 @@
     <!-- ################## 手札部分のレイアウト ################## -->
 
     <RelativeLayout
+        android:id="@+id/HandLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000000" >
@@ -1144,8 +1141,87 @@
             android:onClick="hand3_onClick"
             android:text="@string/hand3"
             android:textColor="#000000" />
+
     </RelativeLayout>
 
+    
+        <!-- ################## 手札部分のレイアウト ################## -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+    <LinearLayout
+        android:id="@+id/CoinLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/colBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="colBtn_onClick"
+                android:text="@string/collect"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/ddBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="ddBtn_onClick"
+                android:text="@string/dobledown"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/betBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="betBtn_onClick"
+                android:text="@string/bet" />
+
+            <Button
+                android:id="@+id/maxBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="maxBtn_onClick"
+                android:text="@string/maxbet" />
+
+        </LinearLayout> 
+                
+        <Button
+            android:id="@+id/playBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="playBtn_onClick"
+            android:text="@string/play" />
+        
+    </LinearLayout>
+
+    
+    
+        
+    <!-- 
     <TextView
         android:id="@+id/log"
         style="@style/blue"
@@ -1162,5 +1238,6 @@
         android:layout_height="wrap_content"
         android:onClick="test_onClick"
         android:text="@string/Reset" />
-
+ 	-->
+    
 </LinearLayout>

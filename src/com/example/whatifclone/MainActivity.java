@@ -29,6 +29,9 @@ public class MainActivity extends Activity {
 	TextView cc1; // ボーナス表示
 	TextView cc2; // ボーナス表示
 	TextView cc3; // ボーナス表示
+	TextView cb1; // ボーナス表示
+	TextView cb2; // ボーナス表示
+	TextView cb3; // ボーナス表示
 	TextView guideView; // ガイド表示
 
 	// 所持コイン数、BET数の関連のViewを宣言
@@ -39,6 +42,8 @@ public class MainActivity extends Activity {
 
 	RelativeLayout handLo;// 手札表示のレイアウト
 	LinearLayout coinLo;// コイン操作のレイアウト
+	LinearLayout guideLo;// ガイドのレイアウト
+	
 
 	/* ********** ********** ********** ********** */
 
@@ -51,10 +56,14 @@ public class MainActivity extends Activity {
 
 		Log.d(TAG, "画面生成…success");
 
-		card.Shuffle();
 		setCard();
+		prepareResource();
+		redrawCoin();
 
-		Deal();
+		// 手札を非表示にして、コイン操作画面を表示する
+		handLo.setVisibility(View.GONE);
+		coinLo.setVisibility(View.VISIBLE);
+
 	}// onCreate_**********
 
 	@Override
@@ -64,31 +73,10 @@ public class MainActivity extends Activity {
 		return true;
 	}// nCreateOptionsMenu_*********
 
-	// setCard関数…リソースから52枚分のトランプの文字列を配列に取得する
-
 	/* ********** ********** ********** ********** */
 
-	// setCard関数…52枚分のカードの表示用文字列を読み込む処理
-	public void setCard() {
-		Resources res = getResources();
-
-		for (int i = 0; i < 52; i++) {
-			String name = "card" + i;
-			int strId = getResources().getIdentifier(name, "string",
-					getPackageName());
-			card.cardInfo[i] = res.getString(strId);
-		}
-	}
-
-	// Deal関数…手札に5枚カードを配る処理
-	public void Deal() {
-		// TextViewを配列で宣言する
-		int[] handId = { R.id.hand1, R.id.hand2, R.id.hand3, R.id.hand4,
-				R.id.hand5 };
-		TextView[] hand = new TextView[handId.length];
-		for (int i = 0; i < handId.length; i++) {
-			hand[i] = (TextView) findViewById(handId[i]);
-		}
+	// リソース
+	public void prepareResource() {
 
 		layout = (TextView) findViewById(R.id.layout);// 場札表示
 		wager = (TextView) findViewById(R.id.wager);//
@@ -100,20 +88,47 @@ public class MainActivity extends Activity {
 		cc2 = (TextView) findViewById(R.id.cChain2); // ボーナス表示
 		cc3 = (TextView) findViewById(R.id.cChain3); // ボーナス表示
 
+		cb1 = (TextView) findViewById(R.id.cBonus1); // ボーナス表示
+		cb2 = (TextView) findViewById(R.id.cBonus2); // ボーナス表示
+		cb3 = (TextView) findViewById(R.id.cBonus3); // ボーナス表示
+
 		handLo = (RelativeLayout) findViewById(R.id.HandLayout); // 手札表示のレイアウト
 		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // コイン操作のレイアウト
+		guideLo = (LinearLayout) findViewById(R.id.GuideLayout); // コイン操作のレイアウト
 
-		// 手札を非表示にして、コイン操作画面を表示する
-		handLo.setVisibility(View.GONE);
+	}
+
+	// setCard関数…リソースから52枚分のトランプの文字列を配列に取得する
+	public void setCard() {
+		Resources res = getResources();
+
+		for (int i = 0; i < 52; i++) {
+			String name = "card" + i;
+			int strId = getResources().getIdentifier(name, "string",
+					getPackageName());
+			card.cardInfo[i] = res.getString(strId);
+		}
+	}
+
+	// dealCard関数…手札に5枚カードを配る処理
+	public void dealCard() {
+		// TextViewを配列で宣言する
+		int[] handId = { R.id.hand1, R.id.hand2, R.id.hand3, R.id.hand4,
+				R.id.hand5 };
+		TextView[] hand = new TextView[handId.length];
+		for (int i = 0; i < handId.length; i++) {
+			hand[i] = (TextView) findViewById(handId[i]);
+		}
 
 		// レイアウトに配置した部品にstring.xmlの文字列を挿入する
 
 		layout.setText("-");
+		Log.d(TAG, "test…success");
+		redrawCoin();
 
-		wager.setText("0");
-		win.setText("0");
-		paid.setText("0");
-		credit.setText("100");
+		cb1.setText(String.valueOf(card.rate52(1)));
+		cb2.setText(String.valueOf(card.rate52(2)));
+		cb3.setText(String.valueOf(card.rate52(3)));
 
 		hand[0].setText(card.Display(card.list.get(0)));
 		card.nowHandNum[0] = card.list.get(0);
@@ -148,10 +163,11 @@ public class MainActivity extends Activity {
 		cc2.setText(String.valueOf(card.chainNum + 2) + " CARDS");
 		cc3.setText(String.valueOf(card.chainNum + 3) + " CARDS");
 
+		Log.d(TAG, "dealCard()…success");
 	}// Deal_**********
 
 	// Click関数…トランプを押したときの挙動
-	public void Click(int x) {
+	public void onClick(int x) {
 
 		// 手札を配列で宣言する
 		int[] handId = { R.id.hand1, R.id.hand2, R.id.hand3, R.id.hand4,
@@ -169,9 +185,11 @@ public class MainActivity extends Activity {
 
 		// TextViewの文字色を変更する（16進数で頭の2bitがアルファ値、00で透過率100%）
 		cc1.setTextColor(0xFFFFFFFF);
+		cb1.setTextColor(0xFFFF0000);
 		// フォントのスタイル（太字、斜線など）を変更する
 		// 背景色を変更する
 		cc1.setBackgroundColor(0xFFFF0000);
+		cb1.setBackgroundColor(0xFFFFFFFF);
 
 		if (layout.getText().equals("-")) {
 
@@ -180,7 +198,7 @@ public class MainActivity extends Activity {
 			layout.setText(card.Display(card.nowHandNum[x]));
 
 			// 場札に置いたカードの数字をガイド上で強調表示する
-			BoldNum(card.nowLayoutNum);
+			boldNum(card.nowLayoutNum);
 
 			// 手札に山札から一枚引いてくる
 			hand[x].setText(card.Display(card.list.get(card.deckNum + 1)));
@@ -195,7 +213,7 @@ public class MainActivity extends Activity {
 			card.chainNum++;
 			count.setText(String.valueOf(card.chainNum));
 
-			Game();
+			judgeGame();
 
 		} else if ((card.Suit(card.nowLayoutNum) == card
 				.Suit(card.nowHandNum[x]))
@@ -203,14 +221,14 @@ public class MainActivity extends Activity {
 						.Rank(card.nowHandNum[x]))) {
 
 			// 　1つ前に場札に置かれていたカードの数字をガイド上から消す
-			DeleteNum(card.nowLayoutNum);
+			deleteNum(card.nowLayoutNum);
 
 			// 場札に手札を置く
 			card.nowLayoutNum = card.nowHandNum[x];
 			layout.setText(card.Display(card.nowHandNum[x]));
 
 			// 場札に置いたカードの数字をガイド上で強調表示する
-			BoldNum(card.nowLayoutNum);
+			boldNum(card.nowLayoutNum);
 
 			if ((0 < card.chainNum) && (card.chainNum < 47)) {
 				// 手札に山札から一枚引いてくる
@@ -230,34 +248,14 @@ public class MainActivity extends Activity {
 			count.setText(String.valueOf(card.chainNum));
 
 			// ボーナス部分のレイアウトに枚数を入れる
-			if ((0 < card.chainNum) && (card.chainNum <= 50)) {
-				cc1.setText(String.valueOf(card.chainNum) + " CARDS");
-				cc2.setText(String.valueOf(card.chainNum + 1) + " CARDS");
-				cc3.setText(String.valueOf(card.chainNum + 2) + " CARDS");
-			} else if (card.chainNum == 51) {
-				cc1.setText(String.valueOf(card.chainNum) + " CARDS");
-				cc2.setText(String.valueOf(card.chainNum + 1) + " CARDS");
-				cc3.setText(" ");
+			redrawBonus(card.chainNum);
 
-			}
-
-			else if (card.chainNum == 52) {
-				cc1.setText(String.valueOf(card.chainNum) + " CARDS");
-				cc2.setText(" ");
-
-				// TextViewの文字色を変更する（16進数で頭の2bitがアルファ値、00で透過率100%）
-				cc1.setTextColor(0x00FFFFFF);
-				// フォントのスタイル（太字、斜線など）を変更する
-				// 背景色を変更する
-				cc1.setBackgroundColor(0xFF0000FF);
-			}
-
-			Game();
+			judgeGame();
 		}
 	}// Card.Click_**********
 
-	// Game関数…ゲームフラグの管理
-	public void Game() {
+	// judgeGame関数…ゲームフラグの管理
+	public void judgeGame() {
 		// log = (TextView) findViewById(R.id.log);
 
 		card.gameFlag = 0; // ゲームフラグ、場札と手札1～5の種類と数字を比較し、場札に出せる手札が無かったら1加算していく
@@ -272,14 +270,36 @@ public class MainActivity extends Activity {
 
 		if (card.gameFlag == 10) {
 			// log.setText("GAME OVER");
+			String.valueOf(coin.paidCoin(coin.getWager()
+					* card.rate52[card.chainNum]));// 払戻金
+
+			redrawCoin();
+
+			// 手札を非表示にして、コイン操作画面を表示する
+			handLo.setVisibility(View.GONE);
+			coinLo.setVisibility(View.VISIBLE);
+
+			Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
-			DeleteNum(card.nowLayoutNum);
+			deleteNum(card.nowLayoutNum);
+			String.valueOf(coin.paidCoin(coin.getWager()
+					* card.rate52[card.chainNum]));// 払戻金
+
+			redrawCoin();
+
+			// 手札を非表示にして、コイン操作画面を表示する
+			handLo.setVisibility(View.GONE);
+			coinLo.setVisibility(View.VISIBLE);
+
+			Log.d(TAG, "GAME CLEAR…success");
 			// log.setText("GAME CLEAR");
 		}
-	}// Card.Game_**********
+		
+		
+	}// judgeGame_**********
 
-	// BoldNum関数…場札に置いたトランプの数字をガイド上で太字・シアンにする処理
-	public void BoldNum(int x) {
+	// boldNum関数…場札に置いたトランプの数字をガイド上で太字・シアンにする処理
+	public void boldNum(int x) {
 		Resources res = getResources();
 		int guideId = res.getIdentifier("card" + x, "id", getPackageName());
 		guideView = (TextView) findViewById(guideId);
@@ -302,8 +322,8 @@ public class MainActivity extends Activity {
 		guideView.setBackgroundColor(0xFF7777FF);
 	}// Card.yellowNum_**********
 
-	// DeleteNum関数…場札に置いたトランプの数字をガイド上から消す処理
-	public void DeleteNum(int x) {
+	// deleteNum関数…場札に置いたトランプの数字をガイド上から消す処理
+	public void deleteNum(int x) {
 		// getResources()でリソースオブジェクトを
 		Resources res = getResources();
 		// guideIdという変数にリソースの場所を格納する
@@ -317,18 +337,55 @@ public class MainActivity extends Activity {
 		guideView.setBackgroundColor(0xFF0000FF);
 	}// Card.DeleteNum_**********
 
+	public void redrawBonus(int x) {
+
+		// ボーナス部分のレイアウトに枚数を入れる
+		if ((0 < card.chainNum) && (card.chainNum <= 50)) {
+			cc1.setText(String.valueOf(card.chainNum) + " CARDS");
+			cc2.setText(String.valueOf(card.chainNum + 1) + " CARDS");
+			cc3.setText(String.valueOf(card.chainNum + 2) + " CARDS");
+
+			cb1.setText(String.valueOf(coin.getWager() * card.rate52(x)));
+			cb2.setText(String.valueOf(coin.getWager() * card.rate52(x + 1)));
+			cb3.setText(String.valueOf(coin.getWager() * card.rate52(x + 2)));
+
+		} else if (card.chainNum == 51) {
+			cc1.setText(String.valueOf(card.chainNum) + " CARDS");
+			cc2.setText(String.valueOf(card.chainNum + 1) + " CARDS");
+			cc3.setText(" ");
+
+			cb1.setText(String.valueOf(coin.getWager() * card.rate52(x)));
+			cb2.setText(String.valueOf(coin.getWager() * card.rate52(x + 1)));
+			cb3.setText(" ");
+
+		}
+
+		else if (card.chainNum == 52) {
+			cc1.setText(String.valueOf(card.chainNum) + " CARDS");
+			cc2.setText(" ");
+
+			cc1.setTextColor(0x00FFFFFF);
+			cc1.setBackgroundColor(0xFF0000FF);
+
+			cb1.setText(String.valueOf(coin.getWager() * card.rate52(x)));
+			cb2.setText(" ");
+
+			cb1.setTextColor(0x00FFFFFF);
+			cb1.setBackgroundColor(0xFFFF0000);
+		}
+
+	}
+
+	public void redrawCoin() {
+		wager.setText(String.valueOf(coin.getWager()));
+		win.setText(String.valueOf(coin.getWin()));
+		paid.setText(String.valueOf(coin.getPaid()));
+		credit.setText(String.valueOf(coin.getCredit()));
+	}
+
 	// ////////////////////////////////////////////////
 	// ボタンクリック時の処理
 	// ////////////////////////////////////////////////
-
-	// リセットボタンの代価
-	// public void test_onClick(View View) {
-	// if (card.gameFlag == 10) {
-	// setContentView(R.layout.activity_main);
-	// card.Shuffle();
-	// Deal();
-	// }
-	// }
 
 	// Layoutファイルにメソッド名を記述する方法
 	// 手札1に配置したボタンをクリックした時の処理
@@ -336,7 +393,7 @@ public class MainActivity extends Activity {
 		TextView hand1 = (TextView) findViewById(R.id.hand1);
 
 		if (!(hand1.getText().equals(" "))) {
-			Click(0);
+			onClick(0);
 		}
 	}
 
@@ -345,7 +402,7 @@ public class MainActivity extends Activity {
 		TextView hand2 = (TextView) findViewById(R.id.hand2);
 
 		if (!(hand2.getText().equals(" "))) {
-			Click(1);
+			onClick(1);
 		}
 
 	}
@@ -355,7 +412,7 @@ public class MainActivity extends Activity {
 		TextView hand3 = (TextView) findViewById(R.id.hand3);
 
 		if (!(hand3.getText().equals(" "))) {
-			Click(2);
+			onClick(2);
 		}
 	}
 
@@ -364,7 +421,7 @@ public class MainActivity extends Activity {
 		TextView hand4 = (TextView) findViewById(R.id.hand4);
 
 		if (!(hand4.getText().equals(" "))) {
-			Click(3);
+			onClick(3);
 		}
 	}
 
@@ -373,11 +430,9 @@ public class MainActivity extends Activity {
 		TextView hand5 = (TextView) findViewById(R.id.hand5);
 
 		if (!(hand5.getText().equals(" "))) {
-			Click(4);
+			onClick(4);
 		}
 	}
-
-	// COLLECTボタンを押したときの処理
 
 	// COLLECTボタンを押したときの処理
 	public void colBtn_onClick(View view) {
@@ -392,6 +447,9 @@ public class MainActivity extends Activity {
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
+		setContentView(R.layout.activity_main);
+		Log.d(TAG, "再描画…success");
+
 	}
 
 	// 1 BETボタンを押したときの処理
@@ -400,7 +458,6 @@ public class MainActivity extends Activity {
 
 		wager.setText(String.valueOf(coin.getWager()));
 		credit.setText(String.valueOf(coin.getCredit()));
-
 	}
 
 	// MAX BETボタンを押したときの処理
@@ -409,19 +466,42 @@ public class MainActivity extends Activity {
 
 		wager.setText(String.valueOf(coin.getWager()));
 		credit.setText(String.valueOf(coin.getCredit()));
+
 	}
 
 	// PLAYボタンを押したときの処理
 	public void playBtn_onClick(View view) {
 
-		
 		// 最小BET数を満たしていたらゲーム開始
-		if (coin.getWager() > coin.getMinbet()) {
+		if (card.gameFlag == 0 && coin.getWager() >= coin.getMinbet()) {
+
+			card.Shuffle();
+			dealCard();
+
+			// 手札を非表示にして、コイン操作画面を表示する
+			
+			handLo.setVisibility(View.VISIBLE);
+			coinLo.setVisibility(View.GONE);
+			
+			Log.d(TAG, "初回プレイ…success");
+			
+		} else if (card.gameFlag == 10 && coin.getWager() >= coin.getMinbet()) {
+			
+			card.Shuffle();
+			dealCard();
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
+			Log.d(TAG, "2回目以降のプレイ…success");
+
+		} else if (card.chainNum == 52 && coin.getWager() >= coin.getMinbet()) {
+
+			
+			Log.d(TAG, "クリア後のプレイ…success");
+
 		}
+
 	}
 
 }// MainActivity_**********

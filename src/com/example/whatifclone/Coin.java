@@ -45,19 +45,19 @@ public class Coin {
 	public int getMinbet() {
 		return minbet;
 	}
-	
+
 	public void setMinbet(int minbet) {
 		this.minbet = minbet;
 	}
-	
+
 	public int getMaxbet() {
 		return maxbet;
 	}
-	
+
 	public void setMaxbet(int maxbet) {
 		this.maxbet = maxbet;
 	}
-	
+
 	// コインを1枚ベットする処理
 	public void minBet() {
 
@@ -74,19 +74,17 @@ public class Coin {
 		if ((0 < credit) && (wager == 0)) {
 			credit -= maxbet;
 			wager += maxbet;
-		}else{
-			
-			credit = credit-(maxbet-wager);
+		} else {
+			credit = credit - (maxbet - wager);
 			wager = maxbet;
-			
 		}
 	}
 
 	// 投入コインの枚数をキャンセルする処理
 	public void cancelBet() {
-		credit +=wager;
-		wager=0;
-		
+		credit += wager;
+		wager = 0;
+
 	}
 
 	// コインを加算する処理
@@ -100,9 +98,26 @@ public class Coin {
 	}
 
 	// 払い戻し処理
-	public void paidCoin() {
+	public int paidCoin(int x) {
 		// 0～win(獲得金)まで1ずつカウントアップしていく
 		// あわせてcreditsのコイン枚数も1ずつカウントアップしていく
+
+		// paid += wager;
+
+		win = x;
+		if (0 != x) {
+			paid = x - wager;
+		} else {
+			paid = 0;
+		}
+		credit += paid;
+
+		wager = 0;
+		paid = 0;
+		win = 0;
+
+		return credit;
+
 	}
 
 }

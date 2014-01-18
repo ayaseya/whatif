@@ -112,4 +112,12 @@
 	<string name="rank12">Q</string>
 	<string name="rank13">K</string>
 	
+	<string name="collect">COLLECT\n/CANCEL</string>
+	<string name="dobledown">DOUBLE\nDOWN</string>
+	<string name="bet">1 BET</string>
+	<string name="maxbet">MAX\nBET</string>
+	<string name="play">PLAY</string>
+	
+	
+	
 </resources>
