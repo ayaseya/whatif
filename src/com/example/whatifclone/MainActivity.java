@@ -1,9 +1,9 @@
 package com.example.whatifclone;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -43,7 +43,6 @@ public class MainActivity extends Activity {
 	RelativeLayout handLo;// 手札表示のレイアウト
 	LinearLayout coinLo;// コイン操作のレイアウト
 	LinearLayout guideLo;// ガイドのレイアウト
-	
 
 	/* ********** ********** ********** ********** */
 
@@ -123,7 +122,6 @@ public class MainActivity extends Activity {
 		// レイアウトに配置した部品にstring.xmlの文字列を挿入する
 
 		layout.setText("-");
-		Log.d(TAG, "test…success");
 		redrawCoin();
 
 		cb1.setText(String.valueOf(card.rate52(1)));
@@ -163,7 +161,6 @@ public class MainActivity extends Activity {
 		cc2.setText(String.valueOf(card.chainNum + 2) + " CARDS");
 		cc3.setText(String.valueOf(card.chainNum + 3) + " CARDS");
 
-		Log.d(TAG, "dealCard()…success");
 	}// Deal_**********
 
 	// Click関数…トランプを押したときの挙動
@@ -294,8 +291,7 @@ public class MainActivity extends Activity {
 			Log.d(TAG, "GAME CLEAR…success");
 			// log.setText("GAME CLEAR");
 		}
-		
-		
+
 	}// judgeGame_**********
 
 	// boldNum関数…場札に置いたトランプの数字をガイド上で太字・シアンにする処理
@@ -336,6 +332,19 @@ public class MainActivity extends Activity {
 		// 背景色を元の青色に戻す
 		guideView.setBackgroundColor(0xFF0000FF);
 	}// Card.DeleteNum_**********
+
+	public void redrawGuide() {
+		Resources res = getResources();
+		int guideId;
+		for (int i = 0; i < 52; i++) {
+			guideId = res.getIdentifier("card" + i, "id", getPackageName());
+			guideView = (TextView) findViewById(guideId);
+			// 文字色を白に戻す
+			guideView.setTextColor(0xFFFFFFFF);
+			// 背景色を元の青色に戻す
+			guideView.setBackgroundColor(0xFF0000FF);
+		}
+	}
 
 	public void redrawBonus(int x) {
 
@@ -447,8 +456,6 @@ public class MainActivity extends Activity {
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
-		setContentView(R.layout.activity_main);
-		Log.d(TAG, "再描画…success");
 
 	}
 
@@ -479,26 +486,32 @@ public class MainActivity extends Activity {
 			dealCard();
 
 			// 手札を非表示にして、コイン操作画面を表示する
-			
+
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
-			
-			Log.d(TAG, "初回プレイ…success");
-			
+
 		} else if (card.gameFlag == 10 && coin.getWager() >= coin.getMinbet()) {
-			
+			card.chainNum = 0;
+			count.setText(String.valueOf(card.chainNum));
+			redrawGuide();
 			card.Shuffle();
 			dealCard();
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
-			Log.d(TAG, "2回目以降のプレイ…success");
+
 
 		} else if (card.chainNum == 52 && coin.getWager() >= coin.getMinbet()) {
+			card.chainNum = 0;
+			count.setText(String.valueOf(card.chainNum));
+			redrawGuide();
+			card.Shuffle();
+			dealCard();
 
-			
-			Log.d(TAG, "クリア後のプレイ…success");
+			// 手札を非表示にして、コイン操作画面を表示する
+			handLo.setVisibility(View.VISIBLE);
+			coinLo.setVisibility(View.GONE);
 
 		}
 
