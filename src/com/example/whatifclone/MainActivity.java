@@ -1,5 +1,7 @@
 package com.example.whatifclone;
 
+import java.util.Timer;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -43,6 +45,8 @@ public class MainActivity extends Activity {
 	RelativeLayout handLo;// 手札表示のレイアウト
 	LinearLayout coinLo;// コイン操作のレイアウト
 	LinearLayout guideLo;// ガイドのレイアウト
+
+	Timer timer;
 
 	/* ********** ********** ********** ********** */
 
@@ -456,7 +460,6 @@ public class MainActivity extends Activity {
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
-
 	}
 
 	// 1 BETボタンを押したときの処理
@@ -469,10 +472,13 @@ public class MainActivity extends Activity {
 
 	// MAX BETボタンを押したときの処理
 	public void maxBtn_onClick(View view) {
+		Log.d("Test", "CheckPoint1");
+		
 		coin.maxBet();
 
-		wager.setText(String.valueOf(coin.getWager()));
-		credit.setText(String.valueOf(coin.getCredit()));
+		 wager.setText(String.valueOf(coin.getWager()));
+		 credit.setText(String.valueOf(coin.getCredit()));
+
 
 	}
 
@@ -500,7 +506,6 @@ public class MainActivity extends Activity {
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
-
 
 		} else if (card.chainNum == 52 && coin.getWager() >= coin.getMinbet()) {
 			card.chainNum = 0;
