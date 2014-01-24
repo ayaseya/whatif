@@ -1,7 +1,6 @@
 package com.example.whatifclone;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 // トランプ（playing cards）の情報を管理するクラス
 public class Card {
@@ -42,7 +41,7 @@ public class Card {
 		}
 
 		// リスト内の連番をシャッフルする
-		Collections.shuffle(list);
+//		Collections.shuffle(list);
 
 		// Log.d(TAG, "リスト" + list);
 		// Log.d(TAG,1 + "枚目" + list.get(0));

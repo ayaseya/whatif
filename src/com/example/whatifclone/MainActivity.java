@@ -1,11 +1,13 @@
 package com.example.whatifclone;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -37,16 +39,19 @@ public class MainActivity extends Activity {
 	TextView guideView; // ガイド表示
 
 	// 所持コイン数、BET数の関連のViewを宣言
-	TextView wager;
-	TextView win;
-	TextView paid;
-	TextView credit;
+	TextView wagerView;
+	TextView winView;
+	TextView paidView;
+	TextView creditView;
 
 	RelativeLayout handLo;// 手札表示のレイアウト
 	LinearLayout coinLo;// コイン操作のレイアウト
 	LinearLayout guideLo;// ガイドのレイアウト
 
-	Timer timer;
+	boolean coin_flag = false;// コインの増減処理中であるか否かの判定、trueが処理中
+	Handler handler = new Handler();
+	int credit = 0;// 増加前のコインの枚数を保持する変数
+	int counter = 0;// カウントアップ（ダウン）用の変数
 
 	/* ********** ********** ********** ********** */
 
@@ -82,10 +87,10 @@ public class MainActivity extends Activity {
 	public void prepareResource() {
 
 		layout = (TextView) findViewById(R.id.layout);// 場札表示
-		wager = (TextView) findViewById(R.id.wager);//
-		win = (TextView) findViewById(R.id.win);//
-		paid = (TextView) findViewById(R.id.paid);//
-		credit = (TextView) findViewById(R.id.credit);//
+		wagerView = (TextView) findViewById(R.id.wager);//
+		winView = (TextView) findViewById(R.id.win);//
+		paidView = (TextView) findViewById(R.id.paid);//
+		creditView = (TextView) findViewById(R.id.credit);//
 
 		cc1 = (TextView) findViewById(R.id.cChain1); // ボーナス表示
 		cc2 = (TextView) findViewById(R.id.cChain2); // ボーナス表示
@@ -270,11 +275,9 @@ public class MainActivity extends Activity {
 		}
 
 		if (card.gameFlag == 10) {
-			// log.setText("GAME OVER");
-			String.valueOf(coin.paidCoin(coin.getWager()
-					* card.rate52[card.chainNum]));// 払戻金
 
-			redrawCoin();
+			cuCoin(Integer.parseInt(wagerView.getText().toString())
+					* card.rate52[card.chainNum - 1]);// 払戻金
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.GONE);
@@ -282,11 +285,7 @@ public class MainActivity extends Activity {
 
 			Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
-			deleteNum(card.nowLayoutNum);
-			String.valueOf(coin.paidCoin(coin.getWager()
-					* card.rate52[card.chainNum]));// 払戻金
-
-			redrawCoin();
+			cuCoin(coin.getWager() * card.rate52[card.chainNum - 1]);// 払戻金
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.GONE);
@@ -390,10 +389,88 @@ public class MainActivity extends Activity {
 	}
 
 	public void redrawCoin() {
-		wager.setText(String.valueOf(coin.getWager()));
-		win.setText(String.valueOf(coin.getWin()));
-		paid.setText(String.valueOf(coin.getPaid()));
-		credit.setText(String.valueOf(coin.getCredit()));
+		wagerView.setText(String.valueOf(coin.getWager()));
+		winView.setText(String.valueOf(0));
+		paidView.setText(String.valueOf(0));
+		creditView.setText(String.valueOf(coin.getCredit()));
+	}
+
+	// cuCoin関数…cu = Count Upの略称、払い戻し時にコインの枚数が1枚ずつ
+	// 増減する様子を表示する処理、引数は増減する枚数を渡す
+	public void cuCoin(final int x) {
+		// コイン増加表示の処理中かフラグ判定
+		if (coin_flag == false && (x != 0)) {
+
+			coin_flag = true;// コイン増加表示の処理中というフラグを立てる
+			credit = coin.getCredit();// 増加前のコインの枚数を格納
+
+			final Timer timer = new Timer();
+
+			Log.d("Test", "timer_start x=" + x);
+
+			winView.setText(String.valueOf(x));
+
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// handlerを通じてUI Threadへ処理をキューイング
+					handler.post(new Runnable() {
+						public void run() {
+							paidView.setText(String.valueOf(counter));
+							creditView.setText(String.valueOf(credit + counter));
+							counter++;
+
+							// Timer終了処理　
+							if (x == coin.getWager() && counter == x) {
+								coin.setWager(0);
+
+								creditView.setText(String.valueOf(credit
+										+ counter));
+								wagerView.setText("0");
+								winView.setText("0");
+								paidView.setText("0");
+
+								Log.d("Test", "timer_stop x=" + x + "counter="
+										+ counter);
+								coin_flag = false;
+								counter = 0;
+								timer.cancel();
+								Log.d("Test", "CheckPoint");
+
+							}
+							if (counter == (x - coin.getWager())
+									&& x != coin.getWager()) {
+								coin.setWager(0);
+
+								creditView.setText(String.valueOf(credit
+										+ counter));
+								wagerView.setText("0");
+								winView.setText("0");
+								paidView.setText("0");
+
+								Log.d("Test", "timer_stop x=" + x + "counter="
+										+ counter);
+								coin_flag = false;
+								counter = 0;
+								timer.cancel();
+							}
+
+						}
+					});
+
+				}
+			}, 0, 50);
+
+		} else if ((0 < counter) && (counter < (x - coin.getWager()))
+				&& (x != 0)) {
+			// コイン増加表示の処理中に再度ボタンを押した時に
+			// 増加表示をスキップする処理
+			counter = x - 1;
+			Log.d("Test", "timer_skip");
+		} else if (x == 0) {
+			coin.setWager(0);
+			redrawCoin();
+		}
 	}
 
 	// ////////////////////////////////////////////////
@@ -452,33 +529,35 @@ public class MainActivity extends Activity {
 
 		if (0 < coin.getWager()) {
 			coin.cancelBet();
-			wager.setText(String.valueOf(coin.getWager()));
-			credit.setText(String.valueOf(coin.getCredit()));
+			wagerView.setText(String.valueOf(coin.getWager()));
+			creditView.setText(String.valueOf(coin.getCredit()));
 		}
 	}
 
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
+		coin.setCredit(90);
+		creditView.setText("90");
+		coin.setWager(10);
+		wagerView.setText("10");
+		cuCoin(10);
 	}
 
 	// 1 BETボタンを押したときの処理
 	public void betBtn_onClick(View view) {
 		coin.minBet();
 
-		wager.setText(String.valueOf(coin.getWager()));
-		credit.setText(String.valueOf(coin.getCredit()));
+		wagerView.setText(String.valueOf(coin.getWager()));
+		creditView.setText(String.valueOf(coin.getCredit()));
 	}
 
 	// MAX BETボタンを押したときの処理
 	public void maxBtn_onClick(View view) {
-		Log.d("Test", "CheckPoint1");
-		
 		coin.maxBet();
 
-		 wager.setText(String.valueOf(coin.getWager()));
-		 credit.setText(String.valueOf(coin.getCredit()));
-
+		wagerView.setText(String.valueOf(coin.getWager()));
+		creditView.setText(String.valueOf(coin.getCredit()));
 
 	}
 
