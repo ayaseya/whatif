@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -282,16 +283,18 @@ public class MainActivity extends Activity {
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
-
-			Log.d(TAG, "GAME OVER…success");
+			
+			Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
+			//Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
 			cuCoin(coin.getWager() * card.rate52[card.chainNum - 1]);// 払戻金
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
-
-			Log.d(TAG, "GAME CLEAR…success");
+			
+			Toast.makeText(this, "GAME CLEAR", Toast.LENGTH_LONG).show();
+			//Log.d(TAG, "GAME CLEAR…success");
 			// log.setText("GAME CLEAR");
 		}
 
@@ -426,6 +429,9 @@ public class MainActivity extends Activity {
 
 								creditView.setText(String.valueOf(credit
 										+ counter));
+								
+								coin.setWager(0);
+								
 								wagerView.setText("0");
 								winView.setText("0");
 								paidView.setText("0");
@@ -440,10 +446,15 @@ public class MainActivity extends Activity {
 							}
 							if (counter == (x - coin.getWager())
 									&& x != coin.getWager()) {
-								coin.setWager(0);
+								
 
 								creditView.setText(String.valueOf(credit
-										+ counter));
+										+ x + coin.getWager()));
+								
+								coin.setCredit((credit
+										+ x + coin.getWager()));
+								coin.setWager(0);
+								
 								wagerView.setText("0");
 								winView.setText("0");
 								paidView.setText("0");
