@@ -425,11 +425,12 @@ public class MainActivity extends Activity {
 
 							// Timer終了処理　
 							if (x == coin.getWager() && counter == x) {
-								coin.setWager(0);
+								
 
 								creditView.setText(String.valueOf(credit
 										+ counter));
-								
+								coin.setCredit((credit
+										+ coin.getWager()));
 								coin.setWager(0);
 								
 								wagerView.setText("0");
