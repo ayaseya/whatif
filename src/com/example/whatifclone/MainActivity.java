@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +44,7 @@ public class MainActivity extends Activity {
 	TextView paidView;
 	TextView creditView;
 
-	RelativeLayout handLo;// 手札表示のレイアウト
+	LinearLayout handLo;// 手札表示のレイアウト
 	LinearLayout coinLo;// コイン操作のレイアウト
 	LinearLayout guideLo;// ガイドのレイアウト
 
@@ -101,7 +100,7 @@ public class MainActivity extends Activity {
 		cb2 = (TextView) findViewById(R.id.cBonus2); // ボーナス表示
 		cb3 = (TextView) findViewById(R.id.cBonus3); // ボーナス表示
 
-		handLo = (RelativeLayout) findViewById(R.id.HandLayout); // 手札表示のレイアウト
+		handLo = (LinearLayout) findViewById(R.id.HandLayout); // 手札表示のレイアウト
 		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // コイン操作のレイアウト
 		guideLo = (LinearLayout) findViewById(R.id.GuideLayout); // コイン操作のレイアウト
 

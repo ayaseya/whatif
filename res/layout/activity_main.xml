@@ -971,19 +971,22 @@
             android:textSize="30sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="#000000"
             android:orientation="vertical" >
 
             <Button
                 android:id="@+id/layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="#FFFFFF"
                 android:text="@string/layout"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -1077,96 +1080,79 @@
 
     <!-- ################## 手札部分のレイアウト ################## -->
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/HandLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#000000" >
+        android:layout_height="match_parent" >
 
         <Button
             android:id="@+id/hand1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
-            android:layout_toLeftOf="@+id/hand2"
+            android:layout_weight="1"
             android:background="#FFFFFF"
             android:onClick="hand1_onClick"
             android:text="@string/hand1"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/hand2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/hand3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
-            android:layout_toLeftOf="@+id/hand3"
+            android:layout_weight="1"
             android:background="#FFFFFF"
             android:onClick="hand2_onClick"
             android:text="@string/hand2"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/hand4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/hand3"
-            android:layout_margin="1dp"
-            android:layout_toRightOf="@+id/hand3"
-            android:background="#FFFFFF"
-            android:onClick="hand4_onClick"
-            android:text="@string/hand4"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/hand5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/hand4"
-            android:layout_margin="1dp"
-            android:layout_toRightOf="@+id/hand4"
-            android:background="#FFFFFF"
-            android:onClick="hand5_onClick"
-            android:text="@string/hand5"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/hand3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
+            android:layout_weight="1"
             android:background="#FFFFFF"
             android:onClick="hand3_onClick"
             android:text="@string/hand3"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/hand4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:onClick="hand4_onClick"
+            android:text="@string/hand4"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-    
-        <!-- ################## 手札部分のレイアウト ################## -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        <Button
+            android:id="@+id/hand5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:onClick="hand5_onClick"
+            android:text="@string/hand5"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
+    </LinearLayout>
+
+    <!-- ################## 手札部操作イアウト ################## -->
 
     <LinearLayout
         android:id="@+id/CoinLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -1206,38 +1192,14 @@
                 android:layout_weight="1"
                 android:onClick="maxBtn_onClick"
                 android:text="@string/maxbet" />
+        </LinearLayout>
 
-        </LinearLayout> 
-                
         <Button
             android:id="@+id/playBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="playBtn_onClick"
             android:text="@string/play" />
-        
     </LinearLayout>
 
-    
-    
-        
-    <!-- 
-    <TextView
-        android:id="@+id/log"
-        style="@style/blue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/white_border"
-        android:lines="1"
-        android:text="@string/log" />
-
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="test_onClick"
-        android:text="@string/Reset" />
- 	-->
-    
 </LinearLayout>
