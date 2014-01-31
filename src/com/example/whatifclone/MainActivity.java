@@ -9,14 +9,22 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AnimationListener {
 
 	// LogCat用のタグを定数で定義する
 	public static final String TAG = "Test";
@@ -53,6 +61,25 @@ public class MainActivity extends Activity {
 	int credit = 0;// 増加前のコインの枚数を保持する変数
 	int counter = 0;// カウントアップ（ダウン）用の変数
 
+	FrameLayout fl;// レイアウト
+
+	ImageView transView1;// 移動用の画像インスタンス
+	ImageView transView2;
+	ImageView transView3;
+	ImageView transView4;
+	ImageView transView5;
+
+	int[] hand1Loc = new int[2];
+	int[] hand2Loc = new int[2];
+	int[] hand3Loc = new int[2];
+	int[] hand4Loc = new int[2];
+	int[] hand5Loc = new int[2];
+	int[] layoutLoc = new int[2];
+
+	boolean animeFlag = false;
+
+	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
+
 	/* ********** ********** ********** ********** */
 
 	@Override
@@ -61,6 +88,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE); // タイトルバーを非表示にする
 		setContentView(R.layout.activity_main);
+
+		// ステータスバーの非表示
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		Log.d(TAG, "画面生成…success");
 
@@ -71,6 +101,7 @@ public class MainActivity extends Activity {
 		// 手札を非表示にして、コイン操作画面を表示する
 		handLo.setVisibility(View.GONE);
 		coinLo.setVisibility(View.VISIBLE);
+		
 
 	}// onCreate_**********
 
@@ -103,6 +134,8 @@ public class MainActivity extends Activity {
 		handLo = (LinearLayout) findViewById(R.id.HandLayout); // 手札表示のレイアウト
 		coinLo = (LinearLayout) findViewById(R.id.CoinLayout); // コイン操作のレイアウト
 		guideLo = (LinearLayout) findViewById(R.id.GuideLayout); // コイン操作のレイアウト
+
+		fl = (FrameLayout) findViewById(R.id.FrameLayout);
 
 	}
 
@@ -201,7 +234,7 @@ public class MainActivity extends Activity {
 		if (layout.getText().equals("-")) {
 
 			layout.setTextColor(0xFF000000);
-			
+
 			// 場札に手札xを置く
 			card.nowLayoutNum = card.nowHandNum[x];
 			layout.setText(card.Display(card.nowHandNum[x]));
@@ -265,7 +298,6 @@ public class MainActivity extends Activity {
 
 	// judgeGame関数…ゲームフラグの管理
 	public void judgeGame() {
-		// log = (TextView) findViewById(R.id.log);
 
 		card.gameFlag = 0; // ゲームフラグ、場札と手札1～5の種類と数字を比較し、場札に出せる手札が無かったら1加算していく
 		for (int i = 0; i < 5; i++) {
@@ -278,15 +310,42 @@ public class MainActivity extends Activity {
 		}
 
 		if (card.gameFlag == 10) {
-
 			cuCoin(Integer.parseInt(wagerView.getText().toString())
 					* card.rate52[card.chainNum - 1]);// 払戻金
-
-			// 手札を非表示にして、コイン操作画面を表示する
-			handLo.setVisibility(View.GONE);
-			coinLo.setVisibility(View.VISIBLE);
 			
+			
+			
+			final Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					// handlerを通じてUI Threadへ処理をキューイング
+					handler.post(new Runnable() {
+						public void run() {
+
+							counter++;
+
+							// Timer終了処理　
+							if (counter == 1) {
+								counter = 0;
+								// 手札を非表示にして、コイン操作画面を表示する
+								handLo.setVisibility(View.GONE);
+								coinLo.setVisibility(View.VISIBLE);
+
+								
+								timer.cancel();
+
+							}
+						}
+					});
+
+				}
+			}, 0, 1000);
 			Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
+			
+			
+
+
 			//Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
 			cuCoin(coin.getWager() * card.rate52[card.chainNum - 1]);// 払戻金
@@ -294,7 +353,7 @@ public class MainActivity extends Activity {
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
-			
+
 			Toast.makeText(this, "GAME CLEAR", Toast.LENGTH_LONG).show();
 			//Log.d(TAG, "GAME CLEAR…success");
 			// log.setText("GAME CLEAR");
@@ -400,6 +459,10 @@ public class MainActivity extends Activity {
 		creditView.setText(String.valueOf(coin.getCredit()));
 	}
 
+	public void transCard() {
+
+	}
+
 	// cuCoin関数…cu = Count Upの略称、払い戻し時にコインの枚数が1枚ずつ
 	// 増減する様子を表示する処理、引数は増減する枚数を渡す
 	public void cuCoin(final int x) {
@@ -427,14 +490,13 @@ public class MainActivity extends Activity {
 
 							// Timer終了処理　
 							if (x == coin.getWager() && counter == x) {
-								
 
 								creditView.setText(String.valueOf(credit
 										+ counter));
 								coin.setCredit((credit
 										+ coin.getWager()));
 								coin.setWager(0);
-								
+
 								wagerView.setText("0");
 								winView.setText("0");
 								paidView.setText("0");
@@ -444,20 +506,18 @@ public class MainActivity extends Activity {
 								coin_flag = false;
 								counter = 0;
 								timer.cancel();
-								Log.d("Test", "CheckPoint");
 
 							}
 							if (counter == (x - coin.getWager())
 									&& x != coin.getWager()) {
-								
 
 								creditView.setText(String.valueOf(credit
 										+ x + coin.getWager()));
-								
+
 								coin.setCredit((credit
 										+ x + coin.getWager()));
 								coin.setWager(0);
-								
+
 								wagerView.setText("0");
 								winView.setText("0");
 								paidView.setText("0");
@@ -487,6 +547,31 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	public void sleepTask(final int x) {
+		final Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				// handlerを通じてUI Threadへ処理をキューイング
+				handler.post(new Runnable() {
+					public void run() {
+
+						counter++;
+
+						// Timer終了処理　
+						if (counter == x) {
+							counter = 0;
+							timer.cancel();
+
+						}
+					}
+				});
+
+			}
+		}, 0, 1000);
+
+	}
+
 	// ////////////////////////////////////////////////
 	// ボタンクリック時の処理
 	// ////////////////////////////////////////////////
@@ -495,9 +580,31 @@ public class MainActivity extends Activity {
 	// 手札1に配置したボタンをクリックした時の処理
 	public void hand1_onClick(View view) {
 		TextView hand1 = (TextView) findViewById(R.id.hand1);
-
 		if (!(hand1.getText().equals(" "))) {
 			onClick(0);
+			if (transView1 == null) {
+				transView1 = new ImageView(this);
+				transView1.setImageResource(R.drawable.card4);
+
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				view.getLocationInWindow(hand1Loc);
+
+				params.gravity = Gravity.NO_GRAVITY;
+				params.leftMargin = hand1Loc[0];
+				params.topMargin = hand1Loc[1];
+
+				transView1.setLayoutParams(params);
+				fl.addView(transView1);
+				layout.getLocationInWindow(layoutLoc);
+			}
+
+			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand1Loc[0], 0, layoutLoc[1] - hand1Loc[1]);
+			translate.setDuration(200);
+			//translate.setFillAfter(true);
+			transView1.startAnimation(translate);
+			translate.setAnimationListener(this);
+
+			transView1.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -507,6 +614,28 @@ public class MainActivity extends Activity {
 
 		if (!(hand2.getText().equals(" "))) {
 			onClick(1);
+			if (transView2 == null) {
+				transView2 = new ImageView(this);
+				transView2.setImageResource(R.drawable.card4);
+
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				view.getLocationInWindow(hand2Loc);
+
+				params.gravity = Gravity.NO_GRAVITY;
+				params.leftMargin = hand2Loc[0];
+				params.topMargin = hand2Loc[1];
+
+				transView2.setLayoutParams(params);
+				fl.addView(transView2);
+				layout.getLocationInWindow(layoutLoc);
+			}
+
+			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand2Loc[0], 0, layoutLoc[1] - hand2Loc[1]);
+			translate.setDuration(200);
+			//translate.setFillAfter(true);
+			transView2.startAnimation(translate);
+			translate.setAnimationListener(this);
+			transView2.setVisibility(View.INVISIBLE);
 		}
 
 	}
@@ -517,6 +646,29 @@ public class MainActivity extends Activity {
 
 		if (!(hand3.getText().equals(" "))) {
 			onClick(2);
+			if (transView3 == null) {
+				transView3 = new ImageView(this);
+				transView3.setImageResource(R.drawable.card4);
+
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				view.getLocationInWindow(hand3Loc);
+
+				params.gravity = Gravity.NO_GRAVITY;
+				params.leftMargin = hand3Loc[0];
+				params.topMargin = hand3Loc[1];
+
+				transView3.setLayoutParams(params);
+				fl.addView(transView3);
+				layout.getLocationInWindow(layoutLoc);
+			}
+
+			TranslateAnimation translate = new TranslateAnimation(0, 0, 0, layoutLoc[1] - hand3Loc[1]);
+
+			translate.setDuration(200);
+			//translate.setFillAfter(true);
+			transView3.startAnimation(translate);
+			translate.setAnimationListener(this);
+			transView3.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -526,6 +678,30 @@ public class MainActivity extends Activity {
 
 		if (!(hand4.getText().equals(" "))) {
 			onClick(3);
+
+			if (transView4 == null) {
+				transView4 = new ImageView(this);
+				transView4.setImageResource(R.drawable.card4);
+
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				view.getLocationInWindow(hand4Loc);
+
+				params.gravity = Gravity.NO_GRAVITY;
+				params.leftMargin = hand4Loc[0];
+				params.topMargin = hand4Loc[1];
+
+				transView4.setLayoutParams(params);
+				fl.addView(transView4);
+				layout.getLocationInWindow(layoutLoc);
+			}
+
+			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand4Loc[0], 0, layoutLoc[1] - hand4Loc[1]);
+			translate.setDuration(200);
+			//translate.setFillAfter(true);
+			transView4.startAnimation(translate);
+			translate.setAnimationListener(this);
+			transView4.setVisibility(View.INVISIBLE);
+
 		}
 	}
 
@@ -535,6 +711,29 @@ public class MainActivity extends Activity {
 
 		if (!(hand5.getText().equals(" "))) {
 			onClick(4);
+			if (transView5 == null) {
+				transView5 = new ImageView(this);
+				transView5.setImageResource(R.drawable.card4);
+
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				view.getLocationInWindow(hand5Loc);
+
+				params.gravity = Gravity.NO_GRAVITY;
+				params.leftMargin = hand5Loc[0];
+				params.topMargin = hand5Loc[1];
+
+				transView5.setLayoutParams(params);
+				fl.addView(transView5);
+				layout.getLocationInWindow(layoutLoc);
+			}
+
+			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand5Loc[0], 0, layoutLoc[1] - hand5Loc[1]);
+			translate.setDuration(200);
+			//translate.setFillAfter(true);
+			transView5.startAnimation(translate);
+			translate.setAnimationListener(this);
+			transView5.setVisibility(View.INVISIBLE);
+
 		}
 	}
 
@@ -551,11 +750,8 @@ public class MainActivity extends Activity {
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
-		coin.setCredit(90);
-		creditView.setText("90");
-		coin.setWager(10);
-		wagerView.setText("10");
-		cuCoin(10);
+		Log.v("Test", "width: " + fl.getWidth() + "height: " + fl.getHeight());
+
 	}
 
 	// 1 BETボタンを押したときの処理
@@ -612,6 +808,25 @@ public class MainActivity extends Activity {
 			coinLo.setVisibility(View.GONE);
 
 		}
+
+	}
+
+	// ////////////////////////////////////////////////
+	// AnimationListener
+	// ////////////////////////////////////////////////
+
+	@Override
+	public void onAnimationStart(Animation arg0) {
+		animeFlag = true;
+	}
+
+	@Override
+	public void onAnimationEnd(Animation arg0) {
+		animeFlag = false;
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation arg0) {
 
 	}
 
