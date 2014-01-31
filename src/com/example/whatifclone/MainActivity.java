@@ -131,6 +131,7 @@ public class MainActivity extends Activity {
 		// レイアウトに配置した部品にstring.xmlの文字列を挿入する
 
 		layout.setText("-");
+		layout.setTextColor(0x00000000);
 		redrawCoin();
 
 		cb1.setText(String.valueOf(card.rate52(1)));
@@ -199,6 +200,8 @@ public class MainActivity extends Activity {
 
 		if (layout.getText().equals("-")) {
 
+			layout.setTextColor(0xFF000000);
+			
 			// 場札に手札xを置く
 			card.nowLayoutNum = card.nowHandNum[x];
 			layout.setText(card.Display(card.nowHandNum[x]));

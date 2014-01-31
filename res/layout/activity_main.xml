@@ -970,24 +970,23 @@
             android:text="@string/zero"
             android:textSize="30sp" />
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/FrameLayout1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="#000000"
-            android:orientation="vertical" >
+            android:background="#000000" >
 
             <Button
                 android:id="@+id/layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="#FFFFFF"
-                android:text="@string/layout"
+                android:minWidth="32dp"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -1083,68 +1082,103 @@
     <LinearLayout
         android:id="@+id/HandLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:baselineAligned="false" >
 
-        <Button
-            android:id="@+id/hand1"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:onClick="hand1_onClick"
-            android:text="@string/hand1"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/hand2"
+            <Button
+                android:id="@+id/hand1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:minWidth="32dp"
+                android:onClick="hand1_onClick"
+                android:text="@string/hand1"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:onClick="hand2_onClick"
-            android:text="@string/hand2"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/hand3"
+            <Button
+                android:id="@+id/hand2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:minWidth="32dp"
+                android:onClick="hand2_onClick"
+                android:text="@string/hand2"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:onClick="hand3_onClick"
-            android:text="@string/hand3"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/hand4"
+            <Button
+                android:id="@+id/hand3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:minWidth="32dp"
+                android:onClick="hand3_onClick"
+                android:text="@string/hand3"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:onClick="hand4_onClick"
-            android:text="@string/hand4"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/hand5"
+            <Button
+                android:id="@+id/hand4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:minWidth="32dp"
+                android:onClick="hand4_onClick"
+                android:text="@string/hand4"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:onClick="hand5_onClick"
-            android:text="@string/hand5"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:layout_weight="1" >
 
+            <Button
+                android:id="@+id/hand5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:minWidth="32dp"
+                android:onClick="hand5_onClick"
+                android:text="@string/hand5"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- ################## 手札部操作イアウト ################## -->
@@ -1152,12 +1186,14 @@
     <LinearLayout
         android:id="@+id/CoinLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
 
             <Button
                 android:id="@+id/colBtn"
@@ -1194,12 +1230,20 @@
                 android:text="@string/maxbet" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/playBtn"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="playBtn_onClick"
-            android:text="@string/play" />
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/playBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="playBtn_onClick"
+                android:text="@string/play" />
+
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>
