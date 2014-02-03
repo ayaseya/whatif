@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +58,8 @@ public class MainActivity extends Activity implements AnimationListener {
 	LinearLayout guideLo;// ガイドのレイアウト
 
 	boolean coin_flag = false;// コインの増減処理中であるか否かの判定、trueが処理中
+	boolean skip_flag = false;// コインの増減処理中であるか否かの判定、trueが処理中
+
 	Handler handler = new Handler();
 	int credit = 0;// 増加前のコインの枚数を保持する変数
 	int counter = 0;// カウントアップ（ダウン）用の変数
@@ -80,6 +83,12 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
 
+	Button btn1;
+	Button btn2;
+	Button btn3;
+	Button btn4;
+	Button btn5;
+
 	/* ********** ********** ********** ********** */
 
 	@Override
@@ -101,7 +110,6 @@ public class MainActivity extends Activity implements AnimationListener {
 		// 手札を非表示にして、コイン操作画面を表示する
 		handLo.setVisibility(View.GONE);
 		coinLo.setVisibility(View.VISIBLE);
-		
 
 	}// onCreate_**********
 
@@ -137,6 +145,11 @@ public class MainActivity extends Activity implements AnimationListener {
 
 		fl = (FrameLayout) findViewById(R.id.FrameLayout);
 
+		btn1 = (Button) findViewById(R.id.hand1);
+		btn2 = (Button) findViewById(R.id.hand2);
+		btn3 = (Button) findViewById(R.id.hand3);
+		btn4 = (Button) findViewById(R.id.hand4);
+		btn5 = (Button) findViewById(R.id.hand5);
 	}
 
 	// setCard関数…リソースから52枚分のトランプの文字列を配列に取得する
@@ -312,9 +325,7 @@ public class MainActivity extends Activity implements AnimationListener {
 		if (card.gameFlag == 10) {
 			cuCoin(Integer.parseInt(wagerView.getText().toString())
 					* card.rate52[card.chainNum - 1]);// 払戻金
-			
-			
-			
+
 			final Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
@@ -332,7 +343,6 @@ public class MainActivity extends Activity implements AnimationListener {
 								handLo.setVisibility(View.GONE);
 								coinLo.setVisibility(View.VISIBLE);
 
-								
 								timer.cancel();
 
 							}
@@ -342,11 +352,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				}
 			}, 0, 1000);
 			Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
-			
-			
 
-
-			//Log.d(TAG, "GAME OVER…success");
+			// Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
 			cuCoin(coin.getWager() * card.rate52[card.chainNum - 1]);// 払戻金
 
@@ -355,7 +362,7 @@ public class MainActivity extends Activity implements AnimationListener {
 			coinLo.setVisibility(View.VISIBLE);
 
 			Toast.makeText(this, "GAME CLEAR", Toast.LENGTH_LONG).show();
-			//Log.d(TAG, "GAME CLEAR…success");
+			// Log.d(TAG, "GAME CLEAR…success");
 			// log.setText("GAME CLEAR");
 		}
 
@@ -459,7 +466,7 @@ public class MainActivity extends Activity implements AnimationListener {
 		creditView.setText(String.valueOf(coin.getCredit()));
 	}
 
-	public void transCard() {
+	public void transCard(View view) {
 
 	}
 
@@ -493,8 +500,7 @@ public class MainActivity extends Activity implements AnimationListener {
 
 								creditView.setText(String.valueOf(credit
 										+ counter));
-								coin.setCredit((credit
-										+ coin.getWager()));
+								coin.setCredit((credit + coin.getWager()));
 								coin.setWager(0);
 
 								wagerView.setText("0");
@@ -511,11 +517,10 @@ public class MainActivity extends Activity implements AnimationListener {
 							if (counter == (x - coin.getWager())
 									&& x != coin.getWager()) {
 
-								creditView.setText(String.valueOf(credit
-										+ x + coin.getWager()));
+								creditView.setText(String.valueOf(credit + x
+										+ coin.getWager()));
 
-								coin.setCredit((credit
-										+ x + coin.getWager()));
+								coin.setCredit((credit + x + coin.getWager()));
 								coin.setWager(0);
 
 								wagerView.setText("0");
@@ -524,6 +529,26 @@ public class MainActivity extends Activity implements AnimationListener {
 
 								Log.d("Test", "timer_stop x=" + x + "counter="
 										+ counter);
+								coin_flag = false;
+								counter = 0;
+								timer.cancel();
+							}
+
+							if (skip_flag == true) {
+
+								creditView.setText(String.valueOf(credit + x
+										+ coin.getWager()));
+
+								coin.setCredit((credit + x + coin.getWager()));
+								coin.setWager(0);
+
+								wagerView.setText("0");
+								winView.setText("0");
+								paidView.setText("0");
+
+								Log.d("Test", "timer_stop x=" + x + "counter="
+										+ counter);
+								skip_flag = false;
 								coin_flag = false;
 								counter = 0;
 								timer.cancel();
@@ -545,6 +570,7 @@ public class MainActivity extends Activity implements AnimationListener {
 			coin.setWager(0);
 			redrawCoin();
 		}
+
 	}
 
 	public void sleepTask(final int x) {
@@ -586,7 +612,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView1 = new ImageView(this);
 				transView1.setImageResource(R.drawable.card4);
 
-				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						WC, WC);
 				view.getLocationInWindow(hand1Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -596,16 +623,37 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView1.setLayoutParams(params);
 				fl.addView(transView1);
 				layout.getLocationInWindow(layoutLoc);
+
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand1Loc[0], 0, layoutLoc[1]
+								- hand1Loc[1]);
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView1.startAnimation(translate);
+				translate.setAnimationListener(this);
+
+				transView1.setVisibility(View.INVISIBLE);
+
+			} else if ((card.Suit(card.nowLayoutNum) == card
+					.Suit(card.nowHandNum[0]))
+					|| (card.Rank(card.nowLayoutNum) == card
+							.Rank(card.nowHandNum[0]))) {
+
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand1Loc[0], 0, layoutLoc[1]
+								- hand1Loc[1]);
+				if (card.chainNum > 47) {
+					btn1.setVisibility(View.INVISIBLE);
+				}
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView1.startAnimation(translate);
+				translate.setAnimationListener(this);
+
+				transView1.setVisibility(View.INVISIBLE);
 			}
-
-			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand1Loc[0], 0, layoutLoc[1] - hand1Loc[1]);
-			translate.setDuration(200);
-			//translate.setFillAfter(true);
-			transView1.startAnimation(translate);
-			translate.setAnimationListener(this);
-
-			transView1.setVisibility(View.INVISIBLE);
 		}
+
 	}
 
 	// 手札2に配置したボタンをクリックした時の処理
@@ -618,7 +666,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView2 = new ImageView(this);
 				transView2.setImageResource(R.drawable.card4);
 
-				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						WC, WC);
 				view.getLocationInWindow(hand2Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -628,14 +677,31 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView2.setLayoutParams(params);
 				fl.addView(transView2);
 				layout.getLocationInWindow(layoutLoc);
-			}
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand2Loc[0], 0, layoutLoc[1]
+								- hand2Loc[1]);
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView2.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView2.setVisibility(View.INVISIBLE);
 
-			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand2Loc[0], 0, layoutLoc[1] - hand2Loc[1]);
-			translate.setDuration(200);
-			//translate.setFillAfter(true);
-			transView2.startAnimation(translate);
-			translate.setAnimationListener(this);
-			transView2.setVisibility(View.INVISIBLE);
+			} else if ((card.Suit(card.nowLayoutNum) == card
+					.Suit(card.nowHandNum[1]))
+					|| (card.Rank(card.nowLayoutNum) == card
+							.Rank(card.nowHandNum[1]))) {
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand2Loc[0], 0, layoutLoc[1]
+								- hand2Loc[1]);
+				if (card.chainNum > 47) {
+					btn2.setVisibility(View.INVISIBLE);
+				}
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView2.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView2.setVisibility(View.INVISIBLE);
+			}
 		}
 
 	}
@@ -650,7 +716,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView3 = new ImageView(this);
 				transView3.setImageResource(R.drawable.card4);
 
-				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						WC, WC);
 				view.getLocationInWindow(hand3Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -660,16 +727,33 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView3.setLayoutParams(params);
 				fl.addView(transView3);
 				layout.getLocationInWindow(layoutLoc);
+				TranslateAnimation translate = new TranslateAnimation(0, 0, 0,
+						layoutLoc[1] - hand3Loc[1]);
+
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView3.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView3.setVisibility(View.INVISIBLE);
+
+			} else if ((card.Suit(card.nowLayoutNum) == card
+					.Suit(card.nowHandNum[2]))
+					|| (card.Rank(card.nowLayoutNum) == card
+							.Rank(card.nowHandNum[2]))) {
+
+				TranslateAnimation translate = new TranslateAnimation(0, 0, 0,
+						layoutLoc[1] - hand3Loc[1]);
+				if (card.chainNum > 47) {
+					btn3.setVisibility(View.INVISIBLE);
+				}
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView3.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView3.setVisibility(View.INVISIBLE);
 			}
-
-			TranslateAnimation translate = new TranslateAnimation(0, 0, 0, layoutLoc[1] - hand3Loc[1]);
-
-			translate.setDuration(200);
-			//translate.setFillAfter(true);
-			transView3.startAnimation(translate);
-			translate.setAnimationListener(this);
-			transView3.setVisibility(View.INVISIBLE);
 		}
+
 	}
 
 	// 手札4に配置したボタンをクリックした時の処理
@@ -683,7 +767,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView4 = new ImageView(this);
 				transView4.setImageResource(R.drawable.card4);
 
-				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						WC, WC);
 				view.getLocationInWindow(hand4Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -693,16 +778,33 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView4.setLayoutParams(params);
 				fl.addView(transView4);
 				layout.getLocationInWindow(layoutLoc);
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand4Loc[0], 0, layoutLoc[1]
+								- hand4Loc[1]);
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView4.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView4.setVisibility(View.INVISIBLE);
+			} else if ((card.Suit(card.nowLayoutNum) == card
+					.Suit(card.nowHandNum[3]))
+					|| (card.Rank(card.nowLayoutNum) == card
+							.Rank(card.nowHandNum[3]))) {
+
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand4Loc[0], 0, layoutLoc[1]
+								- hand4Loc[1]);
+				if (card.chainNum > 47) {
+					btn4.setVisibility(View.INVISIBLE);
+				}
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView4.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView4.setVisibility(View.INVISIBLE);
 			}
-
-			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand4Loc[0], 0, layoutLoc[1] - hand4Loc[1]);
-			translate.setDuration(200);
-			//translate.setFillAfter(true);
-			transView4.startAnimation(translate);
-			translate.setAnimationListener(this);
-			transView4.setVisibility(View.INVISIBLE);
-
 		}
+
 	}
 
 	// 手札5に配置したボタンをクリックした時の処理
@@ -715,7 +817,8 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView5 = new ImageView(this);
 				transView5.setImageResource(R.drawable.card4);
 
-				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(WC, WC);
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						WC, WC);
 				view.getLocationInWindow(hand5Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -725,21 +828,40 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView5.setLayoutParams(params);
 				fl.addView(transView5);
 				layout.getLocationInWindow(layoutLoc);
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand5Loc[0], 0, layoutLoc[1]
+								- hand5Loc[1]);
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView5.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView5.setVisibility(View.INVISIBLE);
+			} else if ((card.Suit(card.nowLayoutNum) == card
+					.Suit(card.nowHandNum[4]))
+					|| (card.Rank(card.nowLayoutNum) == card
+							.Rank(card.nowHandNum[4]))) {
+
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand5Loc[0], 0, layoutLoc[1]
+								- hand5Loc[1]);
+
+				if (card.chainNum > 47) {
+					btn5.setVisibility(View.INVISIBLE);
+				}
+
+				translate.setDuration(200);
+				// translate.setFillAfter(true);
+				transView5.startAnimation(translate);
+				translate.setAnimationListener(this);
+				transView5.setVisibility(View.INVISIBLE);
 			}
-
-			TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand5Loc[0], 0, layoutLoc[1] - hand5Loc[1]);
-			translate.setDuration(200);
-			//translate.setFillAfter(true);
-			transView5.startAnimation(translate);
-			translate.setAnimationListener(this);
-			transView5.setVisibility(View.INVISIBLE);
-
 		}
+
 	}
 
 	// COLLECTボタンを押したときの処理
 	public void colBtn_onClick(View view) {
-
+		skip_flag = true;
 		if (0 < coin.getWager()) {
 			coin.cancelBet();
 			wagerView.setText(String.valueOf(coin.getWager()));
@@ -749,13 +871,14 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
-
-		Log.v("Test", "width: " + fl.getWidth() + "height: " + fl.getHeight());
+		skip_flag = true;
 
 	}
 
 	// 1 BETボタンを押したときの処理
 	public void betBtn_onClick(View view) {
+		skip_flag = true;
+
 		coin.minBet();
 
 		wagerView.setText(String.valueOf(coin.getWager()));
@@ -764,6 +887,7 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// MAX BETボタンを押したときの処理
 	public void maxBtn_onClick(View view) {
+		skip_flag = true;
 		coin.maxBet();
 
 		wagerView.setText(String.valueOf(coin.getWager()));
@@ -773,7 +897,7 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// PLAYボタンを押したときの処理
 	public void playBtn_onClick(View view) {
-
+		skip_flag = true;
 		// 最小BET数を満たしていたらゲーム開始
 		if (card.gameFlag == 0 && coin.getWager() >= coin.getMinbet()) {
 
@@ -781,6 +905,12 @@ public class MainActivity extends Activity implements AnimationListener {
 			dealCard();
 
 			// 手札を非表示にして、コイン操作画面を表示する
+
+			btn1.setVisibility(View.VISIBLE);
+			btn2.setVisibility(View.VISIBLE);
+			btn3.setVisibility(View.VISIBLE);
+			btn4.setVisibility(View.VISIBLE);
+			btn5.setVisibility(View.VISIBLE);
 
 			handLo.setVisibility(View.VISIBLE);
 			coinLo.setVisibility(View.GONE);
@@ -791,6 +921,11 @@ public class MainActivity extends Activity implements AnimationListener {
 			redrawGuide();
 			card.Shuffle();
 			dealCard();
+			btn1.setVisibility(View.VISIBLE);
+			btn2.setVisibility(View.VISIBLE);
+			btn3.setVisibility(View.VISIBLE);
+			btn4.setVisibility(View.VISIBLE);
+			btn5.setVisibility(View.VISIBLE);
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.VISIBLE);
@@ -802,6 +937,11 @@ public class MainActivity extends Activity implements AnimationListener {
 			redrawGuide();
 			card.Shuffle();
 			dealCard();
+			btn1.setVisibility(View.VISIBLE);
+			btn2.setVisibility(View.VISIBLE);
+			btn3.setVisibility(View.VISIBLE);
+			btn4.setVisibility(View.VISIBLE);
+			btn5.setVisibility(View.VISIBLE);
 
 			// 手札を非表示にして、コイン操作画面を表示する
 			handLo.setVisibility(View.VISIBLE);
