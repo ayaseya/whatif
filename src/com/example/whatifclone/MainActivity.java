@@ -64,7 +64,7 @@ public class MainActivity extends Activity implements AnimationListener {
 	int credit = 0;// 増加前のコインの枚数を保持する変数
 	int counter = 0;// カウントアップ（ダウン）用の変数
 
-	FrameLayout fl;// レイアウト
+	FrameLayout fl;// アニメ用のレイアウト
 
 	ImageView transView1;// 移動用の画像インスタンス
 	ImageView transView2;
@@ -72,18 +72,18 @@ public class MainActivity extends Activity implements AnimationListener {
 	ImageView transView4;
 	ImageView transView5;
 
-	int[] hand1Loc = new int[2];
+	int[] hand1Loc = new int[2];// 手札のxy座標を格納する配列
 	int[] hand2Loc = new int[2];
 	int[] hand3Loc = new int[2];
 	int[] hand4Loc = new int[2];
 	int[] hand5Loc = new int[2];
 	int[] layoutLoc = new int[2];
 
-	boolean animeFlag = false;
+	boolean animeFlag = false;// 手札の移動アニメが処理中か否かの判定フラグ
 
-	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
+	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;// レイアウトの画像幅と高さの定数
 
-	Button btn1;
+	Button btn1;// 手札ボタンのインスタンス
 	Button btn2;
 	Button btn3;
 	Button btn4;
@@ -326,34 +326,36 @@ public class MainActivity extends Activity implements AnimationListener {
 			cuCoin(Integer.parseInt(wagerView.getText().toString())
 					* card.rate52[card.chainNum - 1]);// 払戻金
 
-			final Timer timer = new Timer();
-			timer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					// handlerを通じてUI Threadへ処理をキューイング
-					handler.post(new Runnable() {
-						public void run() {
-
-							counter++;
-
-							// Timer終了処理　
-							if (counter == 1) {
-								counter = 0;
-								// 手札を非表示にして、コイン操作画面を表示する
-								handLo.setVisibility(View.GONE);
-								coinLo.setVisibility(View.VISIBLE);
-
-								timer.cancel();
-
-							}
-						}
-					});
-
-				}
-			}, 0, 1000);
+			//			final Timer timer = new Timer();
+			//			timer.schedule(new TimerTask() {
+			//				@Override
+			//				public void run() {
+			//					// handlerを通じてUI Threadへ処理をキューイング
+			//					handler.post(new Runnable() {
+			//						public void run() {
+			//
+			//							counter++;
+			//
+			//							// Timer終了処理　
+			//							if (counter == 1) {
+			//								counter = 0;
+			//								// 手札を非表示にして、コイン操作画面を表示する
+			//								handLo.setVisibility(View.GONE);
+			//								coinLo.setVisibility(View.VISIBLE);
+			//
+			//								timer.cancel();
+			//
+			//							}
+			//						}
+			//					});
+			//
+			//				}
+			//			}, 0, 1000);
 			Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
+			handLo.setVisibility(View.GONE);
+			coinLo.setVisibility(View.VISIBLE);
 
-			// Log.d(TAG, "GAME OVER…success");
+			Log.d(TAG, "GAME OVER…success");
 		} else if (card.chainNum == 52) {
 			cuCoin(coin.getWager() * card.rate52[card.chainNum - 1]);// 払戻金
 
@@ -514,7 +516,7 @@ public class MainActivity extends Activity implements AnimationListener {
 								timer.cancel();
 
 							}
-							if (counter == (x - coin.getWager())
+							else if (counter == (x - coin.getWager())
 									&& x != coin.getWager()) {
 
 								creditView.setText(String.valueOf(credit + x
@@ -534,7 +536,7 @@ public class MainActivity extends Activity implements AnimationListener {
 								timer.cancel();
 							}
 
-							if (skip_flag == true) {
+							else if (skip_flag == true) {
 
 								creditView.setText(String.valueOf(credit + x
 										+ coin.getWager()));
@@ -546,7 +548,7 @@ public class MainActivity extends Activity implements AnimationListener {
 								winView.setText("0");
 								paidView.setText("0");
 
-								Log.d("Test", "timer_stop x=" + x + "counter="
+								Log.d("Test", "timer_stop_skip x=" + x + "counter="
 										+ counter);
 								skip_flag = false;
 								coin_flag = false;
@@ -727,7 +729,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView3.setLayoutParams(params);
 				fl.addView(transView3);
 				layout.getLocationInWindow(layoutLoc);
-				TranslateAnimation translate = new TranslateAnimation(0, 0, 0,
+				TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand3Loc[0], 0,
 						layoutLoc[1] - hand3Loc[1]);
 
 				translate.setDuration(200);
@@ -741,7 +743,7 @@ public class MainActivity extends Activity implements AnimationListener {
 					|| (card.Rank(card.nowLayoutNum) == card
 							.Rank(card.nowHandNum[2]))) {
 
-				TranslateAnimation translate = new TranslateAnimation(0, 0, 0,
+				TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand3Loc[0], 0,
 						layoutLoc[1] - hand3Loc[1]);
 				if (card.chainNum > 47) {
 					btn3.setVisibility(View.INVISIBLE);
@@ -861,7 +863,11 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// COLLECTボタンを押したときの処理
 	public void colBtn_onClick(View view) {
-		skip_flag = true;
+
+		if (coin_flag) {
+			skip_flag = true;
+		}
+
 		if (0 < coin.getWager()) {
 			coin.cancelBet();
 			wagerView.setText(String.valueOf(coin.getWager()));
@@ -871,33 +877,40 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
-		skip_flag = true;
+
+//		coin.setWager(100);
+//		redrawCoin();
+//				coin.setCredit(90);
+//				creditView.setText("90");
+//				coin.setWager(10);
+//				wagerView.setText("10");
+				cuCoin(1000);
 
 	}
 
 	// 1 BETボタンを押したときの処理
 	public void betBtn_onClick(View view) {
-		skip_flag = true;
+		if (coin_flag == false) {
+			coin.minBet();
 
-		coin.minBet();
-
-		wagerView.setText(String.valueOf(coin.getWager()));
-		creditView.setText(String.valueOf(coin.getCredit()));
+			wagerView.setText(String.valueOf(coin.getWager()));
+			creditView.setText(String.valueOf(coin.getCredit()));
+		}
 	}
 
 	// MAX BETボタンを押したときの処理
 	public void maxBtn_onClick(View view) {
-		skip_flag = true;
-		coin.maxBet();
 
-		wagerView.setText(String.valueOf(coin.getWager()));
-		creditView.setText(String.valueOf(coin.getCredit()));
+		if (coin_flag == false) {
+			coin.maxBet();
 
+			wagerView.setText(String.valueOf(coin.getWager()));
+			creditView.setText(String.valueOf(coin.getCredit()));
+		}
 	}
 
 	// PLAYボタンを押したときの処理
 	public void playBtn_onClick(View view) {
-		skip_flag = true;
 		// 最小BET数を満たしていたらゲーム開始
 		if (card.gameFlag == 0 && coin.getWager() >= coin.getMinbet()) {
 
