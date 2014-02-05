@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -58,7 +57,7 @@ public class MainActivity extends Activity implements AnimationListener {
 	LinearLayout guideLo;// ガイドのレイアウト
 
 	boolean coin_flag = false;// コインの増減処理中であるか否かの判定、trueが処理中
-	boolean skip_flag = false;// コインの増減処理中であるか否かの判定、trueが処理中
+	boolean skip_flag = false;// コインの増減処理中にtureに変更すると処理をスキップする
 
 	Handler handler = new Handler();
 	int credit = 0;// 増加前のコインの枚数を保持する変数
@@ -81,7 +80,7 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	boolean animeFlag = false;// 手札の移動アニメが処理中か否かの判定フラグ
 
-	private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;// レイアウトの画像幅と高さの定数
+	//private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;// レイアウトの画像幅と高さの定数
 
 	Button btn1;// 手札ボタンのインスタンス
 	Button btn2;
@@ -150,6 +149,7 @@ public class MainActivity extends Activity implements AnimationListener {
 		btn3 = (Button) findViewById(R.id.hand3);
 		btn4 = (Button) findViewById(R.id.hand4);
 		btn5 = (Button) findViewById(R.id.hand5);
+
 	}
 
 	// setCard関数…リソースから52枚分のトランプの文字列を配列に取得する
@@ -615,7 +615,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView1.setImageResource(R.drawable.card4);
 
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-						WC, WC);
+						layout.getWidth(), layout.getHeight());
 				view.getLocationInWindow(hand1Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -669,7 +669,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView2.setImageResource(R.drawable.card4);
 
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-						WC, WC);
+						layout.getWidth(), layout.getHeight());
 				view.getLocationInWindow(hand2Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -719,7 +719,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView3.setImageResource(R.drawable.card4);
 
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-						WC, WC);
+						layout.getWidth(), layout.getHeight());
 				view.getLocationInWindow(hand3Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -770,7 +770,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView4.setImageResource(R.drawable.card4);
 
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-						WC, WC);
+						layout.getWidth(), layout.getHeight());
 				view.getLocationInWindow(hand4Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -820,7 +820,7 @@ public class MainActivity extends Activity implements AnimationListener {
 				transView5.setImageResource(R.drawable.card4);
 
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-						WC, WC);
+						layout.getWidth(), layout.getHeight());
 				view.getLocationInWindow(hand5Loc);
 
 				params.gravity = Gravity.NO_GRAVITY;
@@ -878,13 +878,13 @@ public class MainActivity extends Activity implements AnimationListener {
 	// DOUBLE DOWNボタンを押したときの処理
 	public void ddBtn_onClick(View view) {
 
-//		coin.setWager(100);
-//		redrawCoin();
-//				coin.setCredit(90);
-//				creditView.setText("90");
-//				coin.setWager(10);
-//				wagerView.setText("10");
-				cuCoin(1000);
+		//		coin.setWager(100);
+		//		redrawCoin();
+		//				coin.setCredit(90);
+		//				creditView.setText("90");
+		//				coin.setWager(10);
+		//				wagerView.setText("10");
+		cuCoin(1000);
 
 	}
 
