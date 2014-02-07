@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <TextView
+    <TextSwitcher
         android:id="@+id/countView"
         style="@style/blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
         android:background="@drawable/bold_border"
         android:gravity="right|center_vertical"
         android:padding="10dp"
-        android:text="@string/zero"
         android:textSize="64sp" />
 
 </FrameLayout>

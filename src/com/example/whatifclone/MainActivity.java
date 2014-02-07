@@ -16,15 +16,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher.ViewFactory;
 
-public class MainActivity extends Activity implements AnimationListener {
+public class MainActivity extends Activity implements AnimationListener, ViewFactory {
 
 	// LogCat用のタグを定数で定義する
 	public static final String TAG = "Test";
@@ -37,7 +40,7 @@ public class MainActivity extends Activity implements AnimationListener {
 
 	// 画面情報関連のViewを宣言
 	TextView layout; // 場札
-	TextView count; // カウンター
+	TextSwitcher count; // カウンター
 	TextView cc1; // ボーナス表示
 	TextView cc2; // ボーナス表示
 	TextView cc3; // ボーナス表示
@@ -149,6 +152,16 @@ public class MainActivity extends Activity implements AnimationListener {
 		btn3 = (Button) findViewById(R.id.hand3);
 		btn4 = (Button) findViewById(R.id.hand4);
 		btn5 = (Button) findViewById(R.id.hand5);
+		
+		final Animation in = AnimationUtils.loadAnimation(this, R.anim.down_in);
+		final Animation out = AnimationUtils.loadAnimation(this, R.anim.down_out);
+
+		count = (TextSwitcher) findViewById(R.id.countView);
+		count.setFactory(MainActivity.this);
+		count.setInAnimation(in);
+		count.setOutAnimation(out);
+		
+		count.setText(String.valueOf(card.chainNum));
 
 	}
 
@@ -231,7 +244,6 @@ public class MainActivity extends Activity implements AnimationListener {
 		}
 
 		layout = (TextView) findViewById(R.id.layout); // 場札
-		count = (TextView) findViewById(R.id.countView); // カウンター
 		cc1 = (TextView) findViewById(R.id.cChain1); // ボーナス表示
 		cc2 = (TextView) findViewById(R.id.cChain2); // ボーナス表示
 		cc3 = (TextView) findViewById(R.id.cChain3); // ボーナス表示
@@ -981,6 +993,18 @@ public class MainActivity extends Activity implements AnimationListener {
 	@Override
 	public void onAnimationRepeat(Animation arg0) {
 
+	}
+
+	// ////////////////////////////////////////////////
+	// ViewFactory
+	// ////////////////////////////////////////////////
+	@Override
+	public View makeView() {
+		TextView txt = new TextView(this);
+		txt.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+		txt.setTextColor(0xFFFFFFFF);
+		txt.setTextSize(64);
+		return txt;
 	}
 
 }// MainActivity_**********
