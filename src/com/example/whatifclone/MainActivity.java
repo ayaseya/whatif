@@ -1,11 +1,13 @@
 package com.example.whatifclone;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -27,7 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
-public class MainActivity extends Activity implements AnimationListener, ViewFactory {
+public class MainActivity extends Activity implements AnimationListener,
+		ViewFactory {
 
 	// LogCat用のタグを定数で定義する
 	public static final String TAG = "Test";
@@ -83,13 +86,16 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 
 	boolean animeFlag = false;// 手札の移動アニメが処理中か否かの判定フラグ
 
-	//private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;// レイアウトの画像幅と高さの定数
+	// private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;//
+	// レイアウトの画像幅と高さの定数
 
 	Button btn1;// 手札ボタンのインスタンス
 	Button btn2;
 	Button btn3;
 	Button btn4;
 	Button btn5;
+
+	private MediaPlayer mp;
 
 	/* ********** ********** ********** ********** */
 
@@ -152,16 +158,19 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 		btn3 = (Button) findViewById(R.id.hand3);
 		btn4 = (Button) findViewById(R.id.hand4);
 		btn5 = (Button) findViewById(R.id.hand5);
-		
+
 		final Animation in = AnimationUtils.loadAnimation(this, R.anim.down_in);
-		final Animation out = AnimationUtils.loadAnimation(this, R.anim.down_out);
+		final Animation out = AnimationUtils.loadAnimation(this,
+				R.anim.down_out);
 
 		count = (TextSwitcher) findViewById(R.id.countView);
 		count.setFactory(MainActivity.this);
 		count.setInAnimation(in);
 		count.setOutAnimation(out);
-		
+
 		count.setText(String.valueOf(card.chainNum));
+
+		mp = MediaPlayer.create(this, R.raw.coin);
 
 	}
 
@@ -338,31 +347,31 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 			cuCoin(Integer.parseInt(wagerView.getText().toString())
 					* card.rate52[card.chainNum - 1]);// 払戻金
 
-			//			final Timer timer = new Timer();
-			//			timer.schedule(new TimerTask() {
-			//				@Override
-			//				public void run() {
-			//					// handlerを通じてUI Threadへ処理をキューイング
-			//					handler.post(new Runnable() {
-			//						public void run() {
+			// final Timer timer = new Timer();
+			// timer.schedule(new TimerTask() {
+			// @Override
+			// public void run() {
+			// // handlerを通じてUI Threadへ処理をキューイング
+			// handler.post(new Runnable() {
+			// public void run() {
 			//
-			//							counter++;
+			// counter++;
 			//
-			//							// Timer終了処理　
-			//							if (counter == 1) {
-			//								counter = 0;
-			//								// 手札を非表示にして、コイン操作画面を表示する
-			//								handLo.setVisibility(View.GONE);
-			//								coinLo.setVisibility(View.VISIBLE);
+			// // Timer終了処理　
+			// if (counter == 1) {
+			// counter = 0;
+			// // 手札を非表示にして、コイン操作画面を表示する
+			// handLo.setVisibility(View.GONE);
+			// coinLo.setVisibility(View.VISIBLE);
 			//
-			//								timer.cancel();
+			// timer.cancel();
 			//
-			//							}
-			//						}
-			//					});
+			// }
+			// }
+			// });
 			//
-			//				}
-			//			}, 0, 1000);
+			// }
+			// }, 0, 1000);
 			Toast.makeText(this, "GAME OVER", Toast.LENGTH_LONG).show();
 			handLo.setVisibility(View.GONE);
 			coinLo.setVisibility(View.VISIBLE);
@@ -527,8 +536,7 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 								counter = 0;
 								timer.cancel();
 
-							}
-							else if (counter == (x - coin.getWager())
+							} else if (counter == (x - coin.getWager())
 									&& x != coin.getWager()) {
 
 								creditView.setText(String.valueOf(credit + x
@@ -560,8 +568,8 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 								winView.setText("0");
 								paidView.setText("0");
 
-								Log.d("Test", "timer_stop_skip x=" + x + "counter="
-										+ counter);
+								Log.d("Test", "timer_stop_skip x=" + x
+										+ "counter=" + counter);
 								skip_flag = false;
 								coin_flag = false;
 								counter = 0;
@@ -741,8 +749,9 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 				transView3.setLayoutParams(params);
 				fl.addView(transView3);
 				layout.getLocationInWindow(layoutLoc);
-				TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand3Loc[0], 0,
-						layoutLoc[1] - hand3Loc[1]);
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand3Loc[0], 0, layoutLoc[1]
+								- hand3Loc[1]);
 
 				translate.setDuration(200);
 				// translate.setFillAfter(true);
@@ -755,8 +764,9 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 					|| (card.Rank(card.nowLayoutNum) == card
 							.Rank(card.nowHandNum[2]))) {
 
-				TranslateAnimation translate = new TranslateAnimation(0, layoutLoc[0] - hand3Loc[0], 0,
-						layoutLoc[1] - hand3Loc[1]);
+				TranslateAnimation translate = new TranslateAnimation(0,
+						layoutLoc[0] - hand3Loc[0], 0, layoutLoc[1]
+								- hand3Loc[1]);
 				if (card.chainNum > 47) {
 					btn3.setVisibility(View.INVISIBLE);
 				}
@@ -890,12 +900,12 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 	// HALF DOWNボタンを押したときの処理
 	public void hdBtn_onClick(View view) {
 
-		//		coin.setWager(100);
-		//		redrawCoin();
-		//				coin.setCredit(90);
-		//				creditView.setText("90");
-		//				coin.setWager(10);
-		//				wagerView.setText("10");
+		// coin.setWager(100);
+		// redrawCoin();
+		// coin.setCredit(90);
+		// creditView.setText("90");
+		// coin.setWager(10);
+		// wagerView.setText("10");
 		cuCoin(1000);
 
 	}
@@ -903,6 +913,25 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 	// 1 BETボタンを押したときの処理
 	public void betBtn_onClick(View view) {
 		if (coin_flag == false) {
+
+			// SEが停止中の場合
+			if (!mp.isPlaying()) {
+				mp.start();
+			} else {// SEが再生中の場合
+
+				try {
+					// 再生を停止
+					mp.stop();
+					mp.prepare();
+
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+
 			coin.minBet();
 
 			wagerView.setText(String.valueOf(coin.getWager()));
@@ -920,10 +949,12 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 			creditView.setText(String.valueOf(coin.getCredit()));
 		}
 	}
+
 	// PAYOUTボタンを押したときの処理
 	public void payoutBtn_onClick(View view) {
-		
+
 	}
+
 	// DEALボタンを押したときの処理
 	public void dealBtn_onClick(View view) {
 		// 最小BET数を満たしていたらゲーム開始
