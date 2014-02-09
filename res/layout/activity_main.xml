@@ -359,7 +359,8 @@
             android:id="@+id/InformationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" >
+            android:layout_margin="10dp"
+            android:baselineAligned="false" >
 
             <include
                 android:layout_width="0dp"
@@ -588,63 +589,9 @@
         <LinearLayout
             android:id="@+id/CoinLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1" >
-
-                <Button
-                    android:id="@+id/colBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="colBtn_onClick"
-                    android:text="@string/collect"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/ddBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="ddBtn_onClick"
-                    android:text="@string/dobledown"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/betBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="betBtn_onClick"
-                    android:text="@string/bet" />
-
-                <Button
-                    android:id="@+id/maxBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="maxBtn_onClick"
-                    android:text="@string/maxbet" />
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
-
-                <Button
-                    android:id="@+id/playBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:onClick="playBtn_onClick"
-                    android:text="@string/play" />
-            </FrameLayout>
+            <include layout="@layout/coin_pannel" />
         </LinearLayout>
     </LinearLayout>
 

@@ -887,8 +887,8 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 		}
 	}
 
-	// DOUBLE DOWNボタンを押したときの処理
-	public void ddBtn_onClick(View view) {
+	// HALF DOWNボタンを押したときの処理
+	public void hdBtn_onClick(View view) {
 
 		//		coin.setWager(100);
 		//		redrawCoin();
@@ -910,8 +910,8 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 		}
 	}
 
-	// MAX BETボタンを押したときの処理
-	public void maxBtn_onClick(View view) {
+	// REPEAT BETボタンを押したときの処理
+	public void repeatBtn_onClick(View view) {
 
 		if (coin_flag == false) {
 			coin.maxBet();
@@ -920,9 +920,12 @@ public class MainActivity extends Activity implements AnimationListener, ViewFac
 			creditView.setText(String.valueOf(coin.getCredit()));
 		}
 	}
-
-	// PLAYボタンを押したときの処理
-	public void playBtn_onClick(View view) {
+	// PAYOUTボタンを押したときの処理
+	public void payoutBtn_onClick(View view) {
+		
+	}
+	// DEALボタンを押したときの処理
+	public void dealBtn_onClick(View view) {
 		// 最小BET数を満たしていたらゲーム開始
 		if (card.gameFlag == 0 && coin.getWager() >= coin.getMinbet()) {
 
